@@ -36,7 +36,6 @@
     overflow-x: hidden;
   }
 
-  /* Hero */
   header.hero {
     position: relative;
     padding: 96px 24px 80px;
@@ -131,7 +130,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* Main */
   main {
     padding: 80px 0 96px;
   }
@@ -167,7 +165,6 @@
     color: #334155;
   }
 
-  /* Session cards */
   .session-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -272,7 +269,6 @@
     opacity: 0.6;
   }
 
-  /* Buttons */
   .actions {
     display: flex;
     gap: 10px;
@@ -329,11 +325,10 @@
     transform: translateX(3px);
   }
 
-  /* Session 2 placeholder */
   .session-card.placeholder {
     background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
     border-style: dashed;
-    opacity: 0.85;
+    opacity: 0.9;
   }
 
   .session-card.placeholder:hover {
@@ -346,7 +341,11 @@
     animation: none;
   }
 
-  /* About section */
+  .session-card.placeholder .session-number {
+    background: rgba(100, 116, 139, 0.1);
+    color: var(--muted);
+  }
+
   .about-content {
     background: var(--bg-alt);
     border-left: 4px solid var(--accent);
@@ -358,7 +357,6 @@
     margin-bottom: 0;
   }
 
-  /* Instructor */
   .instructor-card {
     display: flex;
     align-items: center;
@@ -405,7 +403,6 @@
     line-height: 1.5;
   }
 
-  /* Scroll reveal */
   .reveal {
     opacity: 0;
     transform: translateY(24px);
@@ -418,7 +415,6 @@
     transform: translateY(0);
   }
 
-  /* Footer */
   footer {
     border-top: 1px solid var(--border);
     padding: 40px 24px;
@@ -452,7 +448,6 @@
     text-decoration: underline;
   }
 
-  /* Responsive */
   @media (max-width: 720px) {
     h1 { font-size: 2rem; }
     header.hero { padding: 64px 20px 56px; }
@@ -470,7 +465,6 @@
     .btn { font-size: 0.85rem; padding: 9px 14px; }
   }
 
-  /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -552,9 +546,44 @@
         </div>
       </div>
 
+      <div class="session-card">
+        <div class="session-header">
+          <h3>Making Python Think</h3>
+          <span class="session-number">SESSION 02</span>
+        </div>
+        <p class="session-meta">
+          Conditional statements, logical operators, and loops
+        </p>
+        <ul class="session-topics">
+          <li>Conditional statements: if, elif, else</li>
+          <li>Comparison operators</li>
+          <li>Logical operators: and, or, not</li>
+          <li>Combining conditions</li>
+          <li>The for loop and the range function</li>
+          <li>Looping through lists and filtering data</li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn-primary"
+             href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-2/PYTHON_SESSION_2.ipynb"
+             target="_blank" rel="noopener">
+            Open in Colab <span class="btn-arrow">→</span>
+          </a>
+          <a class="btn"
+             href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-2/PYTHON_SESSION_2.ipynb"
+             target="_blank" rel="noopener">
+            View Notebook
+          </a>
+          <a class="btn"
+             href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-2"
+             target="_blank" rel="noopener">
+            Session Folder
+          </a>
+        </div>
+      </div>
+
       <div class="session-card placeholder">
         <div class="session-header">
-          <h3>Session 02</h3>
+          <h3>Session 03</h3>
           <span class="session-number">UPCOMING</span>
         </div>
         <p class="session-meta">
@@ -609,7 +638,6 @@
 </footer>
 
 <script>
-  // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {

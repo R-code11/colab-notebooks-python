@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quant Society Club — Python Sessions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --text: #0f172a;
+    --muted: #64748b;
+    --accent: #1e3a8a;
+    --accent-hover: #1e40af;
+    --border: #e2e8f0;
+    --bg: #ffffff;
+    --bg-alt: #f8fafc;
+    --bg-card: #ffffff;
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
+    --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  header.hero {
+    position: relative;
+    padding: 96px 24px 80px;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  header.hero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(30, 58, 138, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: floatSlow 20s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  header.hero::after {
+    content: "";
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(30, 58, 138, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: floatSlow 25s ease-in-out infinite reverse;
+    pointer-events: none;
+  }
+
+  @keyframes floatSlow {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-20px, 20px) scale(1.05); }
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 6px 12px;
+    background: rgba(30, 58, 138, 0.06);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out 0.1s forwards;
+  }
+
+  h1 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out 0.2s forwards;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out 0.3s forwards;
+  }
+
+  .hero-affiliation {
+    font-size: 0.95rem;
+    color: var(--muted);
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out 0.4s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Main */
+  main {
+    padding: 80px 0 96px;
+  }
+
+  section {
+    margin-bottom: 80px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    color: var(--text);
+    position: relative;
+    padding-left: 16px;
+  }
+
+  h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 24px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: #334155;
+  }
+
+  /* Session cards */
+  .session-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .session-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), #3b82f6, var(--accent));
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .session-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: #cbd5e1;
+  }
+
+  .session-card:hover::before {
+    opacity: 1;
+    animation: shimmer 2s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .session-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .session-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .session-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    background: rgba(30, 58, 138, 0.08);
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .session-meta {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .session-topics {
+    list-style: none;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+  }
+
+  .session-topics li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 0.93rem;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  .session-topics li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+
+  /* Buttons */
+  .actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    box-shadow: 0 8px 20px rgba(30, 58, 138, 0.25);
+  }
+
+  .btn-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .btn:hover .btn-arrow {
+    transform: translateX(3px);
+  }
+
+  /* Session 2 placeholder */
+  .session-card.placeholder {
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border-style: dashed;
+    opacity: 0.85;
+  }
+
+  .session-card.placeholder:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .session-card.placeholder:hover::before {
+    opacity: 0;
+    animation: none;
+  }
+
+  /* About section */
+  .about-content {
+    background: var(--bg-alt);
+    border-left: 4px solid var(--accent);
+    padding: 24px 28px;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .about-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Instructor */
+  .instructor-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .instructor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .instructor-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #3b82f6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+  }
+
+  .instructor-info h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .instructor-info p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 24px;
+    background: var(--bg-alt);
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  footer p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  footer a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    h1 { font-size: 2rem; }
+    header.hero { padding: 64px 20px 56px; }
+    main { padding: 56px 0 64px; }
+    section { margin-bottom: 56px; }
+    .session-card { padding: 24px; }
+    .session-topics { grid-template-columns: 1fr; }
+    .container { padding: 0 20px; }
+    footer .container { flex-direction: column; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 1.65rem; }
+    .hero-subtitle { font-size: 1rem; }
+    .btn { font-size: 0.85rem; padding: 9px 14px; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <span class="hero-eyebrow">Quant Society Club</span>
+    <h1>Python Sessions</h1>
+    <p class="hero-subtitle">
+      A structured series introducing Python programming and quantitative
+      analysis to students of economics and related disciplines.
+    </p>
+    <p class="hero-affiliation">Azim Premji University, Bhopal</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <section class="reveal">
+      <h2>About</h2>
+      <div class="about-content">
+        <p>
+          This repository contains the complete set of materials for the Python
+          session series conducted by the Quant Society Club at Azim Premji
+          University, Bhopal. Each session is accompanied by a notebook designed
+          for Google Colab, allowing students to run and experiment with code
+          without any local setup.
+        </p>
+        <p>
+          The material is intended for club members and is updated after each
+          session. All notebooks, datasets, and practice problems are hosted
+          openly in this repository.
+        </p>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <h2>Sessions</h2>
+
+      <div class="session-card">
+        <div class="session-header">
+          <h3>Python Without Fear</h3>
+          <span class="session-number">SESSION 01</span>
+        </div>
+        <p class="session-meta">
+          Introduction to Python programming and fundamental concepts
+        </p>
+        <ul class="session-topics">
+          <li>Running Python code in Google Colab</li>
+          <li>Variables, data types, and arithmetic operations</li>
+          <li>Strings, booleans, and comparison operators</li>
+          <li>Reading user input and type conversion</li>
+          <li>Worked example: interactive marks calculator</li>
+          <li>Practice problems across three difficulty levels</li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn-primary"
+             href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-1/PYTHON_SESSION_1_.ipynb"
+             target="_blank" rel="noopener">
+            Open in Colab <span class="btn-arrow">→</span>
+          </a>
+          <a class="btn"
+             href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-1/PYTHON_SESSION_1_.ipynb"
+             target="_blank" rel="noopener">
+            View Notebook
+          </a>
+          <a class="btn"
+             href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-1"
+             target="_blank" rel="noopener">
+            Session Folder
+          </a>
+        </div>
+      </div>
+
+      <div class="session-card placeholder">
+        <div class="session-header">
+          <h3>Session 02</h3>
+          <span class="session-number">UPCOMING</span>
+        </div>
+        <p class="session-meta">
+          Materials for this session will be published after the session is
+          conducted.
+        </p>
+      </div>
+
+    </section>
+
+    <section class="reveal">
+      <h2>Instructor</h2>
+      <div class="instructor-card">
+        <div class="instructor-avatar">RB</div>
+        <div class="instructor-info">
+          <h4>Ramesh Beniwal</h4>
+          <p>
+            Coordinator, Quant Society Club &middot;
+            Instructor, Python Sessions &middot;
+            Department of Economics, Azim Premji University, Bhopal
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <h2>Repository</h2>
+      <p>
+        All session notebooks, datasets, and practice material are hosted on
+        GitHub. The complete repository can be accessed using the link below.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary"
+           href="https://github.com/R-code11/colab-notebooks-python"
+           target="_blank" rel="noopener">
+          View Repository <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Quant Society Club &mdash; Python Sessions</p>
+    <p>
+      Maintained by
+      <a href="https://github.com/R-code11" target="_blank" rel="noopener">Ramesh Beniwal</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

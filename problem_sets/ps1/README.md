@@ -1,4 +1,4 @@
-# Problem Set 1: Python Without Fear
+# Problem Set 1: Based on Session 1 and 2.
 
 **Quant Society Club**  
 Azim Premji University, Bhopal

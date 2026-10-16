@@ -26,6 +26,8 @@
     --amber: #d97706;
     --rose: #e11d48;
     --pink: #db2777;
+    --red: #dc2626;
+    --orange: #f97316;
 
     --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
     --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.07);
@@ -851,6 +853,8 @@
     border-radius: 2px;
   }
   .tl-item { position: relative; margin-bottom: 24px; }
+
+  /* Default dot (upcoming - subtle blue) */
   .tl-item::before {
     content: "";
     position: absolute;
@@ -862,12 +866,67 @@
     background: var(--bg-card);
     border: 2px solid var(--indigo);
     box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    transition: all 0.4s ease;
   }
+
+  /* Done state (green) */
   .tl-item.done::before {
     background: var(--emerald);
     border-color: var(--emerald);
     box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15);
+    animation: none;
   }
+
+  /* Active state (upcoming soon - pulsing) */
+  .tl-item.active::before {
+    background: linear-gradient(135deg, var(--amber), var(--orange));
+    border-color: var(--orange);
+    animation: tlPulse 2s ease-in-out infinite;
+  }
+
+  /* Proximity - closer the session, faster the pulse */
+  .tl-item.active.proximity-near::before {
+    animation-duration: 1.2s;
+  }
+  .tl-item.active.proximity-very-near::before {
+    animation-duration: 0.7s;
+    background: linear-gradient(135deg, var(--orange), var(--rose));
+    border-color: var(--rose);
+  }
+
+  /* Live state - session is happening right now */
+  .tl-item.live::before {
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    border-color: var(--red);
+    width: 16px;
+    height: 16px;
+    left: -36px;
+    top: 6px;
+    animation: tlLive 1.2s ease-in-out infinite;
+  }
+
+  @keyframes tlPulse {
+    0%, 100% {
+      box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.15), 0 0 12px rgba(217, 119, 6, 0.5);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(217, 119, 6, 0.05), 0 0 24px rgba(217, 119, 6, 0.9);
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes tlLive {
+    0%, 100% {
+      box-shadow: 0 0 0 6px rgba(220, 38, 38, 0.3), 0 0 20px rgba(220, 38, 38, 0.9);
+      transform: scale(1.1);
+    }
+    50% {
+      box-shadow: 0 0 0 14px rgba(220, 38, 38, 0.08), 0 0 40px rgba(220, 38, 38, 1);
+      transform: scale(1.35);
+    }
+  }
+
   .tl-date {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
@@ -877,13 +936,53 @@
     letter-spacing: 0.08em;
     margin-bottom: 4px;
   }
+  .tl-item.done .tl-date { color: var(--emerald); }
+  .tl-item.active .tl-date { color: var(--amber); }
+  .tl-item.live .tl-date { color: var(--red); }
+
   .tl-title {
     font-size: 0.98rem;
     font-weight: 700;
     color: var(--text);
     margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
   .tl-desc { font-size: 0.85rem; color: var(--muted); }
+
+  /* LIVE badge */
+  .tl-live-badge {
+    display: none;
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    animation: liveBlink 1s ease-in-out infinite;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+  }
+  .tl-live-badge::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+    animation: liveBlink 1s ease-in-out infinite;
+  }
+  .tl-item.live .tl-live-badge { display: inline-flex; align-items: center; }
+
+  @keyframes liveBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
 
   /* ============ ABOUT ============ */
   .about-content {
@@ -1485,20 +1584,23 @@
     <!-- TIMELINE -->
     <section class="reveal" id="timeline">
       <h2><span class="h2-text">Session Timeline</span></h2>
-      <div class="timeline">
-        <div class="tl-item done">
+      <div class="timeline" id="timelineList">
+        <div class="tl-item">
           <div class="tl-date">August 2026</div>
           <div class="tl-title">Session 1 &mdash; Python Without Fear</div>
           <div class="tl-desc">Fundamentals, variables, data types, arithmetic, and input.</div>
         </div>
-        <div class="tl-item done">
+        <div class="tl-item">
           <div class="tl-date">September 2026</div>
           <div class="tl-title">Session 2 &mdash; Making Python Think</div>
           <div class="tl-desc">Conditionals, logical operators, and loops.</div>
         </div>
         <div class="tl-item">
           <div class="tl-date">October 2026</div>
-          <div class="tl-title">Session 3 &mdash; Data Handling &amp; Preparation</div>
+          <div class="tl-title">
+            Session 3 &mdash; Data Handling &amp; Preparation
+            <span class="tl-live-badge">Live Now</span>
+          </div>
           <div class="tl-desc">Reading CSV files, inspecting data, and preparation for analysis.</div>
         </div>
         <div class="tl-item">
@@ -1702,11 +1804,67 @@
   }
   updateProgress();
 
+  /* ============================================================
+     SESSIONS SCHEDULE — EDIT HERE TO UPDATE TIMELINE
+     ------------------------------------------------------------
+     Format: new Date(Year, Month-1, Day, Hour, Minute, Second)
+     - Month: 0 = Jan, 1 = Feb, ..., 9 = Oct, 11 = Dec
+     - Hour: 24-hour format (16 = 4 PM)
+     - durationHours: kitne ghante chalega session
+     ============================================================ */
+  const schedule = [
+    { date: new Date(2026, 7,  1, 16, 0, 0), durationHours: 2 }, // Session 1 — Aug 1, 4 PM
+    { date: new Date(2026, 8,  1, 16, 0, 0), durationHours: 2 }, // Session 2 — Sep 1, 4 PM
+    { date: new Date(2026, 9, 16, 16, 0, 0), durationHours: 2 }, // Session 3 — Oct 16, 4 PM ✅ AAJ
+    { date: new Date(2026, 10, 1, 16, 0, 0), durationHours: 2 }, // Session 4 — Nov 1, 4 PM
+    { date: new Date(2026, 11, 1, 16, 0, 0), durationHours: 2 }  // Session 5 — Dec 1, 4 PM
+  ];
+
+  /* ===== Dynamic Timeline Updater ===== */
+  function updateTimeline() {
+    const now = new Date();
+    const nowTime = now.getTime();
+    const items = document.querySelectorAll('#timelineList .tl-item');
+
+    items.forEach((item, index) => {
+      const s = schedule[index];
+      if (!s) return;
+
+      // Reset classes
+      item.classList.remove('done', 'active', 'live', 'proximity-far', 'proximity-near', 'proximity-very-near');
+
+      const startTime = s.date.getTime();
+      const endTime = startTime + s.durationHours * 60 * 60 * 1000;
+
+      if (nowTime >= endTime) {
+        // Session khatam — done
+        item.classList.add('done');
+      } else if (nowTime >= startTime) {
+        // Session LIVE ho raha hai — 4 to 6 PM
+        item.classList.add('live');
+      } else {
+        // Upcoming — pulsing indicator based on proximity
+        item.classList.add('active');
+        const hoursUntil = (startTime - nowTime) / (1000 * 60 * 60);
+        if (hoursUntil <= 1) {
+          item.classList.add('proximity-very-near');   // 1 hour se kam — fast pulse
+        } else if (hoursUntil <= 24) {
+          item.classList.add('proximity-near');        // 24 hours — medium pulse
+        } else {
+          item.classList.add('proximity-far');         // door — slow pulse
+        }
+      }
+    });
+  }
+  updateTimeline();
+  setInterval(updateTimeline, 30000); // every 30 seconds
+
   /* ===== Countdown ===== */
-  // Aaj: 16 October 2026, 4:00 PM
-  // Format: new Date(Year, Month-1, Day, Hour, Minute, Second)
-  // Note: JavaScript me Month 0 se shuru (0=Jan, 9=Oct, 11=Dec)
-  const nextSession = new Date(2026, 9, 16, 16, 0, 0);
+  // Yahan wahi date daalo jo schedule me active session ki hai
+  const nextSession = schedule.find(s => {
+    const endTime = s.date.getTime() + s.durationHours * 60 * 60 * 1000;
+    return endTime > Date.now();
+  })?.date || new Date(2026, 11, 1, 16, 0, 0);
 
   function updateCountdown() {
     const now = new Date();

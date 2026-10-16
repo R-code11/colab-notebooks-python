@@ -1537,6 +1537,7 @@
       </div>
     </section>
 
+
     <!-- REPOSITORY -->
     <section class="reveal">
       <h2><span class="h2-text">Repository</span></h2>
@@ -1702,23 +1703,27 @@
   updateProgress();
 
   /* ===== Countdown ===== */
-  const nextSession = new Date(2026, 9, 25, 10, 0, 0); // Oct 25, 2026 at 10:00 AM
+  // Aaj: 16 October 2026, 4:00 PM
+  // Format: new Date(Year, Month-1, Day, Hour, Minute, Second)
+  // Note: JavaScript me Month 0 se shuru (0=Jan, 9=Oct, 11=Dec)
+  const nextSession = new Date(2026, 9, 16, 16, 0, 0);
+
   function updateCountdown() {
     const now = new Date();
     const diff = nextSession - now;
     if (diff <= 0) {
       document.getElementById('countdown').innerHTML =
-        '<div class="cd-unit" style="min-width:auto;padding:8px 18px;">Session Started</div>';
+        '<div class="cd-unit" style="min-width:auto;padding:8px 18px;font-weight:700;">Session Started</div>';
       return;
     }
     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
     const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const m = Math.floor((diff / (1000 * 60)) % 60);
     const s = Math.floor((diff / 1000) % 60);
-    document.getElementById('cdDays').textContent = String(d).padStart(2, '0');
+    document.getElementById('cdDays').textContent  = String(d).padStart(2, '0');
     document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
-    document.getElementById('cdMins').textContent = String(m).padStart(2, '0');
-    document.getElementById('cdSecs').textContent = String(s).padStart(2, '0');
+    document.getElementById('cdMins').textContent  = String(m).padStart(2, '0');
+    document.getElementById('cdSecs').textContent  = String(s).padStart(2, '0');
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);

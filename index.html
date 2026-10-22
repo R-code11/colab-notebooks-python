@@ -568,8 +568,8 @@
   }
   .session-icon.s1 { background: linear-gradient(135deg, var(--indigo), var(--violet)); }
   .session-icon.s2 { background: linear-gradient(135deg, var(--sky), var(--emerald)); }
-  .session-icon.s3 { background: linear-gradient(135deg, var(--amber), var(--rose)); box-shadow: 0 8px 18px -6px rgba(225, 29, 72, 0.5); }
-  .session-icon.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
+  .session-icon.s3 { background: linear-gradient(135deg, var(--amber), var(--rose)); }
+  .session-icon.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); box-shadow: 0 8px 18px -6px rgba(219, 39, 119, 0.5); }
   .session-icon.ps { background: linear-gradient(135deg, #0891b2, var(--indigo)); }
 
   .session-card h3 {
@@ -1221,7 +1221,7 @@
         <div class="stat-icon c1">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         </div>
-        <div class="stat-value">3</div>
+        <div class="stat-value">4</div>
         <div class="stat-label">Sessions</div>
       </div>
       <div class="stat-card">
@@ -1296,7 +1296,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
             Your Progress
           </div>
-          <div class="progress-value"><span id="progressCount">0</span> / 3 completed</div>
+          <div class="progress-value"><span id="progressCount">0</span> / 4 completed</div>
         </div>
         <div class="progress-track">
           <div class="progress-fill" id="progressFill"></div>
@@ -1402,8 +1402,8 @@
         </div>
       </div>
 
-      <!-- Session 3 (current) -->
-      <div class="session-card current" data-search="session 03 data handling preparation csv dataset academic_data notebook colab">
+      <!-- Session 3 (Done) -->
+      <div class="session-card" data-search="session 03 data handling preparation csv dataset academic_data notebook colab">
         <div class="session-header">
           <div class="session-title-row">
             <div class="session-icon s3">
@@ -1413,25 +1413,11 @@
               <h3>Data Handling &amp; Preparation</h3>
             </div>
           </div>
-          <span class="session-number hot">Session 03 &middot; Active</span>
+          <span class="session-number">Session 03</span>
         </div>
         <p class="session-meta">
           Working with real datasets, reading CSV files, and preparing data for analysis.
         </p>
-
-        <div class="notice-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-            <line x1="12" y1="9" x2="12" y2="13"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
-          </svg>
-          <div>
-            <strong>Important:</strong> We will use the <strong>academic_data.csv</strong> dataset
-            in the upcoming session. Please download it and either upload it to your
-            <strong>Google Drive</strong> or save it in a <strong>separate folder on your laptop</strong>.
-            Come fully prepared.
-          </div>
-        </div>
 
         <div class="actions">
           <a class="btn btn-primary"
@@ -1461,6 +1447,72 @@
           </label>
         </div>
       </div>
+
+      <!-- ================= SESSION 04 (CURRENT) ================= -->
+      <div class="session-card current" data-search="session 04 data academic courses analysis research friday applications">
+        <div class="session-header">
+          <div class="session-title-row">
+            <div class="session-icon s4">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Data for Academic Courses</h3>
+            </div>
+          </div>
+          <span class="session-number hot">Session 04 &middot; Active</span>
+        </div>
+        <p class="session-meta">
+          Applying data skills to real coursework, research projects, and upcoming academic courses.
+        </p>
+
+        <div class="notice-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <div>
+            <strong>Upcoming Session:</strong> This session will show how the data skills you've built apply directly
+            to your <strong>academic coursework</strong> and <strong>future research projects</strong>. Bring your laptop
+            and be ready to work with real academic datasets.
+          </div>
+        </div>
+
+        <ul class="session-topics">
+          <li>Working with real academic datasets</li>
+          <li>Data preparation for research projects</li>
+          <li>Basic statistical summaries and insights</li>
+          <li>Analyzing structured data for coursework</li>
+          <li>Applications in economics, social sciences, and beyond</li>
+          <li>Hands-on case studies and exercises</li>
+        </ul>
+
+        <div class="actions">
+          <a class="btn btn-primary"
+             href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-4/Python_Session_4.ipynb"
+             target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Open Notebook in Colab
+          </a>
+          <a class="btn"
+             href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-4/Python_Session_4.ipynb"
+             target="_blank" rel="noopener">View Notebook</a>
+          <a class="btn"
+             href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-4"
+             target="_blank" rel="noopener">Session Folder</a>
+          <label class="mark-complete">
+            <input type="checkbox" onchange="toggleComplete(this, 's4')" data-key="s4">
+            <span class="check-box">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span class="check-label">Mark as done</span>
+          </label>
+        </div>
+      </div>
+      <!-- ======================================================= -->
 
     </section>
 
@@ -1595,23 +1647,19 @@
     </div>
     <div class="modal-body">
       <div class="announce urgent">
-        <span class="time">Latest &middot; Session 03 Preparation</span>
-        <div class="title">Download the Dataset Before Session 3</div>
-        Please download <strong>academic_data.csv</strong> and either upload it to your
-        <strong>Google Drive</strong> or save it in a separate folder on your laptop.
-        Come fully prepared.
+        <span class="time">Latest &middot; Session 04</span>
+        <div class="title">Session 4 &mdash; This Friday, 4-6 PM</div>
+        This Friday's session focuses on <strong>Data for Academic Courses</strong> &mdash; how the skills you've learned apply to real coursework, research, and upcoming academic projects. Bring your laptop!
       </div>
       <div class="announce success">
-        <span class="time">New &middot; Notebook Released</span>
-        <div class="title">Python_Session_3.ipynb is now available</div>
-        The Session 3 notebook is now live. Open it directly in Google Colab from the
-        Session 3 card above.
+        <span class="time">New &middot; Session 03 Complete</span>
+        <div class="title">Session 3 Materials Available</div>
+        Session 3 on Data Handling &amp; Preparation is complete. The notebook and dataset are still available on the Session 3 card.
       </div>
       <div class="announce info">
         <span class="time">Reminder</span>
         <div class="title">Problem Set 1 Solutions Available</div>
-        Worked solutions with detailed reasoning for <strong>Problem Set 1</strong> are now
-        available. Click "View Solutions (HTML)" in the Problem Sets section.
+        Worked solutions with detailed reasoning for <strong>Problem Set 1</strong> are available. Click "View Solutions (HTML)" in the Problem Sets section.
       </div>
     </div>
   </div>
@@ -1701,7 +1749,7 @@
     updateProgress();
   }
   function updateProgress() {
-    const keys = ['s1', 's2', 's3'];
+    const keys = ['s1', 's2', 's3', 's4'];
     let done = 0;
     keys.forEach(k => {
       const checked = localStorage.getItem('progress_' + k) === '1';
@@ -1726,8 +1774,8 @@
     { title: "Session 1 — Python Without Fear",         desc: "Fundamentals, variables, data types, arithmetic, and input.", date: new Date(2026, 7,  1, 16, 0, 0), durationHours: 2 },
     { title: "Session 2 — Making Python Think",          desc: "Conditionals, logical operators, and loops.",                 date: new Date(2026, 8,  1, 16, 0, 0), durationHours: 2 },
     { title: "Session 3 — Data Handling & Preparation",  desc: "Reading CSV files, inspecting data, and preparation for analysis.", date: new Date(2026, 9, 16, 16, 0, 0), durationHours: 2 },
-    { title: "Session 4 — Coming Soon",                  desc: "Materials will be published closer to the date.",             date: new Date(2026, 10, 1, 16, 0, 0), durationHours: 2 },
-    { title: "Session 5 — Coming Soon",                  desc: "Capstone session and final project.",                          date: new Date(2026, 11, 1, 16, 0, 0), durationHours: 2 }
+    { title: "Session 4 — Data for Academic Courses",    desc: "Applying data skills to real coursework, research, and upcoming academic projects.", date: new Date(2026, 9, 23, 16, 0, 0), durationHours: 2 },
+    { title: "Session 5 — Coming Soon",                  desc: "Capstone session and final project.",                          date: new Date(2026, 10, 6, 16, 0, 0), durationHours: 2 }
   ];
 
   /* ===== Dynamic Timeline — Max 3 items (last 2 done + current) ===== */

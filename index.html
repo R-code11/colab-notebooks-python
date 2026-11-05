@@ -76,18 +76,26 @@
   }
   .nav-links > a:hover, .nav-links > button:hover { color: var(--indigo); background: rgba(79, 70, 229, 0.06); }
 
-  /* Dropdown */
   .nav-dropdown { position: relative; }
   .nav-dropdown > button::after {
-    content: "▾"; font-size: 0.7rem; opacity: 0.6; margin-left: 4px;
+    content: "";
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid currentColor;
+    margin-left: 6px;
+    opacity: 0.5;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    display: inline-block;
   }
   .nav-dropdown.open > button { color: var(--indigo); background: rgba(79, 70, 229, 0.06); }
+  .nav-dropdown.open > button::after { transform: rotate(180deg); opacity: 0.9; }
   .dropdown-menu {
-    position: absolute; top: calc(100% + 8px); left: 0;
+    position: absolute; top: calc(100% + 10px); left: 0;
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 12px; padding: 6px;
     box-shadow: var(--shadow-lg);
-    min-width: 220px;
+    min-width: 250px;
     opacity: 0; visibility: hidden;
     transform: translateY(-6px);
     transition: all 0.2s ease;
@@ -216,6 +224,7 @@
     padding: 12px 20px; border-top: 1px solid var(--border);
     background: var(--bg-alt); display: flex; justify-content: space-between;
     align-items: center; font-size: 0.75rem; color: var(--muted);
+    flex-wrap: wrap; gap: 8px;
   }
   .search-footer kbd {
     font-family: 'JetBrains Mono', monospace;
@@ -319,20 +328,26 @@
     text-transform: uppercase; letter-spacing: 0.06em;
   }
 
-  main { padding: 40px 0 96px; }
-  section { margin-bottom: 72px; }
+  main { padding: 48px 0 96px; }
+  section { margin-bottom: 80px; }
   h2 {
-    font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em;
-    margin-bottom: 28px; color: var(--text); position: relative;
-    padding-left: 20px; display: flex; align-items: center;
-    justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    font-size: 1.5rem; font-weight: 800; letter-spacing: -0.025em;
+    margin-bottom: 26px; color: var(--text);
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
   }
-  h2 > span.h2-text { display: flex; align-items: center; gap: 10px; }
   h2::before {
-    content: ""; position: absolute; left: 0; top: 50%;
-    transform: translateY(-50%); width: 5px; height: 28px;
-    background: linear-gradient(180deg, var(--indigo), var(--violet));
-    border-radius: 3px; box-shadow: 0 0 12px rgba(79, 70, 229, 0.4);
+    content: "";
+    width: 8px; height: 8px;
+    background: linear-gradient(135deg, var(--indigo), var(--violet));
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15), 0 0 14px rgba(79, 70, 229, 0.5);
+    flex-shrink: 0;
+  }
+  h2 .h2-text {
+    background: linear-gradient(135deg, var(--text) 0%, var(--indigo) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   p { margin-bottom: 16px; color: var(--text-soft); }
 
@@ -341,7 +356,7 @@
     background: linear-gradient(135deg, var(--indigo), var(--violet) 60%, var(--pink));
     color: #fff; padding: 20px 28px; border-radius: 18px;
     display: flex; align-items: center; justify-content: space-between;
-    gap: 20px; margin-bottom: 40px; flex-wrap: wrap;
+    gap: 20px; margin-bottom: 48px; flex-wrap: wrap;
     box-shadow: 0 20px 50px -20px rgba(79, 70, 229, 0.7);
     position: relative; overflow: hidden;
   }
@@ -381,13 +396,12 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 18px;
-    margin-top: 24px;
   }
   .session-btn {
     background: var(--bg-card);
     border: 1.5px solid var(--border);
     border-radius: 18px;
-    padding: 24px;
+    padding: 22px 24px;
     cursor: pointer;
     text-align: left;
     font-family: inherit;
@@ -399,6 +413,7 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
+    min-height: 160px;
   }
   .session-btn::before {
     content: "";
@@ -793,7 +808,7 @@
   </div>
 </nav>
 
-<!-- SEARCH OVERLAY (Quarto-style) -->
+<!-- SEARCH OVERLAY -->
 <div class="search-overlay" id="searchOverlay" onclick="closeSearchOnOverlay(event)">
   <div class="search-box" onclick="event.stopPropagation()">
     <div class="search-header">
@@ -803,13 +818,13 @@
     </div>
     <div class="search-results" id="searchResults"></div>
     <div class="search-footer">
-      <span><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
-      <span><kbd>Enter</kbd> to open &middot; <kbd>Esc</kbd> to close</span>
+      <span><kbd>↑</kbd> <kbd>↓</kbd> navigate &middot; <kbd>Enter</kbd> open</span>
+      <span><kbd>Esc</kbd> close</span>
     </div>
   </div>
 </div>
 
-<!-- ================= HOME PAGE ================= -->
+<!-- HOME PAGE -->
 <div class="page active" id="page-home">
   <header class="hero">
     <div class="container">
@@ -866,7 +881,6 @@
 
       <section id="sessions">
         <h2><span class="h2-text">Sessions</span></h2>
-        <p>Click any session to open its full page with materials, notebook, and topics.</p>
         <div class="session-grid" id="sessionGrid"></div>
       </section>
 
@@ -921,15 +935,12 @@
   </main>
 </div>
 
-<!-- All detail pages are same as before (s1, s2, s3, s4, s5, ps1) -->
-
 <!-- SESSION 1 -->
 <div class="page" id="page-s1">
   <header class="session-detail-header">
     <div class="container">
       <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to Home
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
       </button>
       <div class="detail-icon-large s1">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -1238,16 +1249,16 @@
 </div>
 
 <script>
-  /* ============ DATA (used by search) ============ */
+  /* ============ SEARCH DATA ============ */
   const searchData = [
-    { id: 'home', page: 'home', icon: 'home', label: 'Home', title: 'Home Page', meta: 'Main dashboard with all sessions', keywords: 'home dashboard main index quant society python series' },
+    { id: 'home', page: 'home', icon: 'home', label: 'HM', title: 'Home Page', meta: 'Main dashboard with all sessions', keywords: 'home dashboard main index quant society python series' },
     { id: 's1', page: 's1', icon: 's1', label: 'S1', title: 'Python Without Fear', meta: 'Session 01 · Fundamentals of Python', keywords: 'python variables data types strings booleans input colab marks calculator arithmetic session 1' },
     { id: 's2', page: 's2', icon: 's2', label: 'S2', title: 'Making Python Think', meta: 'Session 02 · Conditionals and loops', keywords: 'if elif else loops range logical operators conditions for while session 2' },
     { id: 's3', page: 's3', icon: 's3', label: 'S3', title: 'Data Handling & Preparation', meta: 'Session 03 · CSV files and datasets', keywords: 'csv dataset academic data handling preparation reading files session 3 pandas dataframe' },
     { id: 's4', page: 's4', icon: 's4', label: 'S4', title: 'Revision Session', meta: 'Session 04 · Recap of Sessions 1-3', keywords: 'revision recap practice exercises recap session 4 mixed problems' },
     { id: 's5', page: 's5', icon: 's5', label: 'S5', title: 'Exploratory Data Analysis', meta: 'Session 05 · EDA basics', keywords: 'eda exploratory data analysis missing values summary statistics mean median quartiles outliers distributions histograms box plots correlation scatter session 5' },
-    { id: 'ps1', page: 'ps1', icon: 'ps', label: 'PS1', title: 'Problem Set 1', meta: 'Based on Session 1', keywords: 'problem set 1 solutions pdf questions practice session 1' },
-    { id: 'instructor', page: 'home', icon: 'home', label: 'I', title: 'Instructor - Ramesh Beniwal', meta: 'Quant Society Club Coordinator', keywords: 'instructor ramesh beniwal teacher professor coordinator quant society economics' }
+    { id: 'ps1', page: 'ps1', icon: 'ps', label: 'P1', title: 'Problem Set 1', meta: 'Based on Session 1', keywords: 'problem set 1 solutions pdf questions practice session 1' },
+    { id: 'instructor', page: 'home', icon: 'home', label: 'IN', title: 'Instructor - Ramesh Beniwal', meta: 'Quant Society Club Coordinator', keywords: 'instructor ramesh beniwal teacher professor coordinator quant society economics' }
   ];
 
   /* ============ NAVBAR ============ */
@@ -1258,11 +1269,11 @@
 
   /* ============ DROPDOWNS ============ */
   function toggleDropdown(id) {
+    event.stopPropagation();
     const dropdown = document.getElementById(id);
     const wasOpen = dropdown.classList.contains('open');
     document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
     if (!wasOpen) dropdown.classList.add('open');
-    event.stopPropagation();
   }
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.nav-dropdown')) {
@@ -1332,7 +1343,6 @@
   function closeSearchOnOverlay(e) {
     if (e.target === searchOverlay) closeSearch();
   }
-
   function escapeHtml(str) {
     return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
   }
@@ -1342,7 +1352,6 @@
     const q = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     return safeText.replace(new RegExp('(' + q + ')', 'gi'), '<mark>$1</mark>');
   }
-
   function renderSearchResults(query) {
     const q = (query || '').toLowerCase().trim();
     currentResults = searchData.filter(item => {
@@ -1350,14 +1359,11 @@
       const haystack = (item.title + ' ' + item.meta + ' ' + item.keywords).toLowerCase();
       return haystack.includes(q);
     }).slice(0, 8);
-
     selectedIndex = currentResults.length > 0 ? 0 : -1;
-
     if (currentResults.length === 0) {
       searchResults.innerHTML = `<div class="search-empty"><strong>No results found</strong>Try "session", "data", "python", "EDA"</div>`;
       return;
     }
-
     searchResults.innerHTML = currentResults.map((item, i) => `
       <button class="search-item ${i === selectedIndex ? 'selected' : ''}" data-index="${i}" onclick="navigateFromSearch(${i})">
         <span class="search-item-icon ${item.icon}">${item.label}</span>
@@ -1368,16 +1374,13 @@
       </button>
     `).join('');
   }
-
   function navigateFromSearch(index) {
     const item = currentResults[index];
     if (item) navigate(item.page);
   }
-
   function handleSearch(e) {
     renderSearchResults(e.target.value);
   }
-
   function handleSearchKeys(e) {
     if (currentResults.length === 0) return;
     if (e.key === 'ArrowDown') {
@@ -1393,7 +1396,6 @@
       if (selectedIndex >= 0) navigateFromSearch(selectedIndex);
     }
   }
-
   function updateSelection() {
     document.querySelectorAll('.search-item').forEach((el, i) => {
       el.classList.toggle('selected', i === selectedIndex);
@@ -1415,14 +1417,13 @@
     if (e.target === modal) closeModal();
   }
 
-  /* ============ KEYBOARD SHORTCUTS ============ */
+  /* ============ KEYBOARD ============ */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { closeModal(); closeSearch(); }
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
       e.preventDefault();
       openSearch();
     }
-    // Quarto-style: press "/" or "f" to open search (only when not typing in input)
     if (!e.target.matches('input, textarea')) {
       if (e.key === '/' || e.key === 'f') {
         e.preventDefault();
@@ -1434,7 +1435,7 @@
   /* ============ PROGRESS ============ */
   function toggleComplete(checkbox, key) {
     localStorage.setItem('progress_' + key, checkbox.checked ? '1' : '0');
-    buildSessionGrid(); // Refresh badges
+    buildSessionGrid();
   }
   function syncProgress() {
     ['s1', 's2', 's3', 's4', 's5'].forEach(k => {
@@ -1452,7 +1453,6 @@
     { id: 's4', num: '04', title: 'Revision Session', meta: 'Recap of Sessions 1-3', icon: 's4' },
     { id: 's5', num: '05', title: 'Exploratory Data Analysis', meta: 'EDA basics & visualization', icon: 's5', active: true }
   ];
-
   const iconSVGs = {
     s1: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
     s2: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg>',
@@ -1460,7 +1460,6 @@
     s4: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
     s5: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>'
   };
-
   function buildSessionGrid() {
     const grid = document.getElementById('sessionGrid');
     if (!grid) return;
@@ -1504,7 +1503,6 @@
     const end = d.getTime() + 2 * 60 * 60 * 1000;
     return end > Date.now();
   }) || schedule[schedule.length - 1];
-
   function updateCountdown() {
     const now = new Date();
     const diff = nextSession - now;

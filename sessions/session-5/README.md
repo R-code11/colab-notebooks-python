@@ -49,7 +49,7 @@ Upon completion of this session, participants should be able to:
 
 ## Notebook
 
-The session notebook will be available in this folder before the session:
+The session notebook will be available in this folder after the session:
 
 `Python_Session_5.ipynb`
 

@@ -11,7 +11,7 @@
   :root {
     --text: #0a0e1a; --text-soft: #334155; --muted: #64748b;
     --border: #e5e9f2; --bg: #ffffff; --bg-alt: #f8fafc; --bg-card: #ffffff;
-    --bg-nav: rgba(255, 255, 255, 0.72);
+    --bg-nav: rgba(255, 255, 255, 0.82);
     --indigo: #4f46e5; --indigo-dark: #4338ca; --violet: #7c3aed;
     --sky: #0284c7; --emerald: #059669; --amber: #d97706;
     --rose: #e11d48; --pink: #db2777; --red: #dc2626; --orange: #f97316; --cyan: #0891b2;
@@ -22,7 +22,7 @@
   [data-theme="dark"] {
     --text: #f1f5f9; --text-soft: #cbd5e1; --muted: #94a3b8;
     --border: #1e293b; --bg: #0a0e1a; --bg-alt: #0f172a; --bg-card: #111827;
-    --bg-nav: rgba(10, 14, 26, 0.72);
+    --bg-nav: rgba(10, 14, 26, 0.82);
     --indigo: #818cf8; --indigo-dark: #6366f1; --violet: #a78bfa;
     --sky: #38bdf8; --emerald: #34d399; --amber: #fbbf24;
     --rose: #fb7185; --pink: #f472b6;
@@ -49,7 +49,7 @@
   }
   .navbar.scrolled { box-shadow: var(--shadow-md); border-bottom-color: transparent; }
   .nav-container {
-    max-width: 1120px; margin: 0 auto; padding: 14px 24px;
+    max-width: 1180px; margin: 0 auto; padding: 12px 24px;
     display: flex; justify-content: space-between; align-items: center; gap: 20px;
   }
   .nav-brand {
@@ -66,14 +66,47 @@
     transition: transform 0.3s ease;
   }
   .nav-brand:hover .nav-brand-logo { transform: rotate(-8deg) scale(1.08); }
-  .nav-links { display: flex; gap: 6px; align-items: center; flex: 1; justify-content: center; }
-  .nav-links a, .nav-links button {
-    color: var(--muted); text-decoration: none; font-size: 0.88rem;
+  .nav-links { display: flex; gap: 4px; align-items: center; flex: 1; justify-content: center; }
+  .nav-links > a, .nav-links > button {
+    color: var(--muted); text-decoration: none; font-size: 0.86rem;
     font-weight: 600; padding: 8px 14px; border-radius: 8px;
     transition: all 0.2s ease; position: relative;
     background: none; border: none; cursor: pointer; font-family: inherit;
+    display: inline-flex; align-items: center; gap: 6px;
   }
-  .nav-links a:hover, .nav-links button:hover { color: var(--indigo); background: rgba(79, 70, 229, 0.06); }
+  .nav-links > a:hover, .nav-links > button:hover { color: var(--indigo); background: rgba(79, 70, 229, 0.06); }
+
+  /* Dropdown */
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > button::after {
+    content: "▾"; font-size: 0.7rem; opacity: 0.6; margin-left: 4px;
+  }
+  .nav-dropdown.open > button { color: var(--indigo); background: rgba(79, 70, 229, 0.06); }
+  .dropdown-menu {
+    position: absolute; top: calc(100% + 8px); left: 0;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 6px;
+    box-shadow: var(--shadow-lg);
+    min-width: 220px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-6px);
+    transition: all 0.2s ease;
+    z-index: 100;
+  }
+  .nav-dropdown.open .dropdown-menu {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+  .dropdown-menu button {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; padding: 9px 12px;
+    background: none; border: none; border-radius: 8px;
+    font-family: inherit; font-size: 0.85rem; font-weight: 600;
+    color: var(--text-soft); text-align: left; cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .dropdown-menu button:hover { background: var(--bg-alt); color: var(--indigo); }
+  .dropdown-menu .dm-divider { height: 1px; background: var(--border); margin: 6px 8px; }
+
   .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
   .icon-btn {
     width: 38px; height: 38px; border-radius: 10px;
@@ -96,7 +129,102 @@
   .theme-toggle .moon { display: none; }
   [data-theme="dark"] .theme-toggle .moon { display: block; }
 
-  /* ================= PAGES SYSTEM ================= */
+  /* ================= SEARCH (Quarto-style) ================= */
+  .search-overlay {
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 100px 20px 40px; z-index: 1100;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+  .search-overlay.open { opacity: 1; visibility: visible; }
+  .search-box {
+    background: var(--bg-card); border-radius: 18px;
+    width: 100%; max-width: 680px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transform: scale(0.96) translateY(-10px);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .search-overlay.open .search-box { transform: scale(1) translateY(0); }
+  .search-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 18px 22px; border-bottom: 1px solid var(--border);
+  }
+  .search-header svg { color: var(--muted); flex-shrink: 0; }
+  .search-header input {
+    flex: 1; border: none; outline: none;
+    background: transparent; color: var(--text);
+    font-family: inherit; font-size: 1rem; font-weight: 500;
+  }
+  .search-header input::placeholder { color: var(--muted); }
+  .search-close {
+    background: var(--bg-alt); border: none; width: 32px; height: 32px;
+    border-radius: 8px; color: var(--muted); font-size: 1.2rem;
+    cursor: pointer; line-height: 1; flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+  .search-close:hover { background: var(--border); color: var(--text); }
+
+  .search-results {
+    max-height: 420px; overflow-y: auto;
+    padding: 8px;
+  }
+  .search-results::-webkit-scrollbar { width: 8px; }
+  .search-results::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .search-empty {
+    text-align: center; padding: 40px 20px; color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .search-empty strong { display: block; color: var(--text); margin-bottom: 6px; }
+  .search-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 12px 14px; border-radius: 10px;
+    cursor: pointer; transition: background 0.15s ease;
+    text-align: left;
+    background: none; border: none; width: 100%;
+    font-family: inherit;
+  }
+  .search-item:hover, .search-item.selected { background: var(--bg-alt); }
+  .search-item-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; flex-shrink: 0; font-size: 0.7rem; font-weight: 800;
+    letter-spacing: -0.05em;
+  }
+  .search-item-icon.s1 { background: linear-gradient(135deg, var(--indigo), var(--violet)); }
+  .search-item-icon.s2 { background: linear-gradient(135deg, var(--sky), var(--emerald)); }
+  .search-item-icon.s3 { background: linear-gradient(135deg, var(--amber), var(--rose)); }
+  .search-item-icon.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
+  .search-item-icon.s5 { background: linear-gradient(135deg, var(--cyan), var(--emerald)); }
+  .search-item-icon.ps { background: linear-gradient(135deg, var(--cyan), var(--indigo)); }
+  .search-item-icon.home { background: linear-gradient(135deg, #64748b, #94a3b8); }
+  .search-item-content { flex: 1; min-width: 0; }
+  .search-item-title {
+    font-size: 0.92rem; font-weight: 700; color: var(--text);
+    margin-bottom: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .search-item-meta {
+    font-size: 0.78rem; color: var(--muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .search-item-title mark { background: rgba(79, 70, 229, 0.2); color: var(--indigo); padding: 0 2px; border-radius: 3px; }
+  .search-footer {
+    padding: 12px 20px; border-top: 1px solid var(--border);
+    background: var(--bg-alt); display: flex; justify-content: space-between;
+    align-items: center; font-size: 0.75rem; color: var(--muted);
+  }
+  .search-footer kbd {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg-card); border: 1px solid var(--border);
+    padding: 1px 6px; border-radius: 4px; font-size: 0.7rem;
+    color: var(--text-soft);
+  }
+
+  /* ================= PAGES ================= */
   .page { display: none; }
   .page.active { display: block; animation: pageFadeIn 0.4s ease; }
   @keyframes pageFadeIn {
@@ -104,44 +232,7 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ================= SEARCH ================= */
-  .search-overlay {
-    position: fixed; top: 0; left: 0; right: 0; background: var(--bg);
-    border-bottom: 1px solid var(--border); padding: 20px 24px;
-    transform: translateY(-100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1100; box-shadow: var(--shadow-lg);
-  }
-  .search-overlay.open { transform: translateY(0); }
-  .search-container { max-width: 720px; margin: 0 auto; position: relative; }
-  .search-input {
-    width: 100%; padding: 16px 56px 16px 52px;
-    border: 2px solid var(--border); border-radius: 14px;
-    font-family: inherit; font-size: 1rem; background: var(--bg-card);
-    color: var(--text); outline: none; transition: border-color 0.2s ease;
-  }
-  .search-input:focus { border-color: var(--indigo); }
-  .search-input::placeholder { color: var(--muted); }
-  .search-icon-inside {
-    position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
-    color: var(--muted); pointer-events: none;
-  }
-  .search-close {
-    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-    background: var(--bg-alt); border: none; width: 32px; height: 32px;
-    border-radius: 8px; cursor: pointer; color: var(--muted);
-    font-size: 1.2rem; line-height: 1; transition: all 0.2s ease;
-  }
-  .search-close:hover { background: var(--border); color: var(--text); }
-  .search-hint {
-    text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 10px;
-  }
-  .search-hint kbd {
-    font-family: 'JetBrains Mono', monospace; background: var(--bg-alt);
-    border: 1px solid var(--border); padding: 1px 6px; border-radius: 4px;
-    font-size: 0.75rem;
-  }
-
-  /* ================= HERO (HOME) ================= */
+  /* ================= HERO ================= */
   header.hero {
     position: relative; padding: 140px 24px 60px;
     background:
@@ -158,7 +249,7 @@
       radial-gradient(500px 300px at 50% 100%, rgba(2, 132, 199, 0.12), transparent 60%),
       linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
   }
-  .container { max-width: 980px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+  .container { max-width: 1040px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 0.76rem; font-weight: 700; letter-spacing: 0.12em;
@@ -285,10 +376,10 @@
     display: block; font-weight: 600;
   }
 
-  /* SESSION BUTTONS GRID */
+  /* SESSION BUTTONS */
   .session-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 18px;
     margin-top: 24px;
   }
@@ -332,7 +423,6 @@
   }
   .session-btn.active::before { opacity: 1; }
   .session-btn.done { opacity: 0.75; }
-
   .session-btn-header {
     display: flex;
     align-items: center;
@@ -350,35 +440,22 @@
   .session-btn-icon.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
   .session-btn-icon.s5 { background: linear-gradient(135deg, var(--cyan), var(--emerald)); }
   .session-btn-icon.ps { background: linear-gradient(135deg, var(--cyan), var(--indigo)); }
-
   .session-btn-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    color: var(--text);
+    font-size: 1.05rem; font-weight: 700;
+    letter-spacing: -0.015em; color: var(--text);
     margin-bottom: 2px;
   }
   .session-btn-meta {
-    font-size: 0.8rem;
-    color: var(--muted);
-    font-weight: 500;
+    font-size: 0.8rem; color: var(--muted); font-weight: 500;
   }
   .session-btn-label {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: auto;
-    padding-top: 14px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: auto; padding-top: 14px;
     border-top: 1px dashed var(--border);
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--indigo);
+    font-size: 0.8rem; font-weight: 700; color: var(--indigo);
   }
-  .session-btn-label svg {
-    transition: transform 0.3s ease;
-  }
+  .session-btn-label svg { transition: transform 0.3s ease; }
   .session-btn:hover .session-btn-label svg { transform: translateX(4px); }
-
   .badge-new {
     background: linear-gradient(135deg, var(--rose), var(--pink));
     color: #fff; font-size: 0.6rem; font-weight: 800;
@@ -394,16 +471,13 @@
   .badge-done {
     background: rgba(5, 150, 105, 0.15);
     color: var(--emerald);
-    font-size: 0.6rem;
-    font-weight: 800;
-    padding: 2px 8px;
-    border-radius: 999px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-size: 0.6rem; font-weight: 800;
+    padding: 2px 8px; border-radius: 999px;
+    text-transform: uppercase; letter-spacing: 0.06em;
     margin-left: auto;
   }
 
-  /* ============ SESSION DETAIL PAGE ============ */
+  /* DETAIL PAGE */
   .session-detail-header {
     position: relative;
     padding: 140px 24px 60px;
@@ -414,36 +488,18 @@
     border-bottom: 1px solid var(--border); overflow: hidden;
   }
   .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 28px;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.2s ease;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 10px;
+    color: var(--text); font-family: inherit; font-size: 0.88rem;
+    font-weight: 600; cursor: pointer; margin-bottom: 28px;
+    box-shadow: var(--shadow-sm); transition: all 0.2s ease;
   }
-  .back-btn:hover {
-    transform: translateX(-3px);
-    border-color: var(--indigo);
-    color: var(--indigo);
-  }
+  .back-btn:hover { transform: translateX(-3px); border-color: var(--indigo); color: var(--indigo); }
   .detail-icon-large {
-    width: 72px;
-    height: 72px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    margin-bottom: 24px;
+    width: 72px; height: 72px; border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; margin-bottom: 24px;
     box-shadow: 0 16px 32px -12px rgba(79, 70, 229, 0.6);
   }
   .detail-icon-large.s1 { background: linear-gradient(135deg, var(--indigo), var(--violet)); }
@@ -452,83 +508,47 @@
   .detail-icon-large.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
   .detail-icon-large.s5 { background: linear-gradient(135deg, var(--cyan), var(--emerald)); }
   .detail-icon-large.ps { background: linear-gradient(135deg, var(--cyan), var(--indigo)); }
-
   .detail-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.035em;
-    margin-bottom: 14px;
+    font-size: 2.5rem; font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.035em; margin-bottom: 14px;
     background: linear-gradient(135deg, var(--text) 0%, var(--indigo) 55%, var(--violet) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
+    -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .detail-meta {
-    font-size: 1.1rem;
-    color: var(--muted);
-    max-width: 640px;
-    margin-bottom: 16px;
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 640px; margin-bottom: 16px;
   }
   .detail-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(79, 70, 229, 0.1);
-    color: var(--indigo);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; font-weight: 700; padding: 6px 14px;
+    border-radius: 999px; background: rgba(79, 70, 229, 0.1);
+    color: var(--indigo); text-transform: uppercase; letter-spacing: 0.08em;
   }
-
-  /* Detail content cards */
   .detail-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 30px;
-    margin-bottom: 22px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 30px; margin-bottom: 22px;
     box-shadow: var(--shadow-sm);
   }
   .detail-card h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    font-size: 1.15rem; font-weight: 700; color: var(--text);
+    margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
   }
-  .detail-card h3 svg {
-    color: var(--indigo);
-  }
+  .detail-card h3 svg { color: var(--indigo); }
   .detail-card .session-topics {
-    list-style: none;
-    margin-bottom: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px 24px;
+    list-style: none; margin-bottom: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px;
   }
   .detail-card .session-topics li {
-    position: relative;
-    padding-left: 24px;
-    font-size: 0.92rem;
-    color: var(--text-soft);
-    line-height: 1.55;
+    position: relative; padding-left: 24px;
+    font-size: 0.92rem; color: var(--text-soft); line-height: 1.55;
   }
   .detail-card .session-topics li::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 9px;
+    content: ""; position: absolute; left: 0; top: 9px;
     width: 8px; height: 8px;
     background: linear-gradient(135deg, var(--indigo), var(--violet));
-    border-radius: 50%;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    border-radius: 50%; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
   }
-
   .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
@@ -551,7 +571,6 @@
   .btn-primary:hover {
     color: #fff; box-shadow: 0 16px 32px -10px rgba(79, 70, 229, 0.75);
   }
-
   .notice-box {
     background: linear-gradient(135deg, rgba(2, 132, 199, 0.1), rgba(59, 130, 246, 0.06));
     color: var(--sky); padding: 18px 20px; border-radius: 14px;
@@ -568,8 +587,7 @@
     font-size: 0.85rem; font-weight: 600; color: var(--muted);
     cursor: pointer; padding: 10px 16px; border-radius: 10px;
     transition: all 0.2s ease; user-select: none;
-    border: 1px solid var(--border);
-    background: var(--bg-card);
+    border: 1px solid var(--border); background: var(--bg-card);
   }
   .mark-complete:hover { background: var(--bg-alt); color: var(--text); border-color: var(--emerald); }
   .mark-complete input { display: none; }
@@ -588,40 +606,22 @@
     color: var(--emerald); text-decoration: line-through;
     text-decoration-color: rgba(5, 150, 105, 0.4);
   }
-
-  /* Progress tracker on detail pages */
   .detail-progress {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
+    background: var(--bg-alt); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 20px; margin-top: 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
   }
   .detail-progress span:first-child {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-soft);
-  }
-  .detail-progress .progress-status {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--muted);
-  }
-  .detail-progress .progress-status.done {
-    color: var(--emerald);
+    font-size: 0.9rem; font-weight: 600; color: var(--text-soft);
   }
 
-  /* ============ INSTRUCTOR ============ */
+  /* INSTRUCTOR */
   .instructor-card {
     display: flex; align-items: center; gap: 22px; padding: 24px;
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 16px; box-shadow: var(--shadow-sm);
-    transition: all 0.3s ease; margin-bottom: 14px;
+    transition: all 0.3s ease;
   }
   .instructor-card:hover {
     transform: translateY(-3px); box-shadow: var(--shadow-md);
@@ -641,7 +641,7 @@
     font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.5;
   }
 
-  /* ============ FOOTER ============ */
+  /* FOOTER */
   footer {
     border-top: 1px solid var(--border); padding: 40px 24px;
     background: linear-gradient(180deg, var(--bg-alt), var(--bg));
@@ -655,7 +655,7 @@
   footer a { color: var(--indigo); text-decoration: none; font-weight: 600; }
   footer a:hover { color: var(--indigo-dark); text-decoration: underline; }
 
-  /* ============ MODAL ============ */
+  /* MODAL */
   .modal-overlay {
     position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
     backdrop-filter: blur(8px); display: flex;
@@ -725,6 +725,7 @@
     .countdown-bar { flex-direction: column; align-items: flex-start; }
     .detail-card .session-topics { grid-template-columns: 1fr; }
     .session-grid { grid-template-columns: 1fr; }
+    .search-overlay { padding: 80px 16px 40px; }
   }
   @media (max-width: 480px) {
     h1, .detail-title { font-size: 1.85rem; }
@@ -747,7 +748,7 @@
 </head>
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <div class="nav-container">
     <div class="nav-brand" onclick="navigate('home')">
@@ -756,12 +757,28 @@
     </div>
     <div class="nav-links">
       <button onclick="navigate('home')">Home</button>
-      <button onclick="navigate('sessions')">Sessions</button>
-      <button onclick="navigate('problemsets')">Problem Sets</button>
+      <div class="nav-dropdown" id="navSessions">
+        <button onclick="toggleDropdown('navSessions')">Sessions</button>
+        <div class="dropdown-menu">
+          <button onclick="navigate('s1')"><span class="search-item-icon s1" style="width:24px;height:24px;font-size:0.6rem;">01</span>Python Without Fear</button>
+          <button onclick="navigate('s2')"><span class="search-item-icon s2" style="width:24px;height:24px;font-size:0.6rem;">02</span>Making Python Think</button>
+          <button onclick="navigate('s3')"><span class="search-item-icon s3" style="width:24px;height:24px;font-size:0.6rem;">03</span>Data Handling &amp; Preparation</button>
+          <button onclick="navigate('s4')"><span class="search-item-icon s4" style="width:24px;height:24px;font-size:0.6rem;">04</span>Revision Session</button>
+          <button onclick="navigate('s5')"><span class="search-item-icon s5" style="width:24px;height:24px;font-size:0.6rem;">05</span>Exploratory Data Analysis</button>
+        </div>
+      </div>
+      <div class="nav-dropdown" id="navProblemSets">
+        <button onclick="toggleDropdown('navProblemSets')">Problem Sets</button>
+        <div class="dropdown-menu">
+          <button onclick="navigate('ps1')"><span class="search-item-icon ps" style="width:24px;height:24px;font-size:0.6rem;">P1</span>Problem Set 1</button>
+          <div class="dm-divider"></div>
+          <button onclick="return false;" style="opacity:0.5;cursor:default;">Problem Set 2 (Upcoming)</button>
+        </div>
+      </div>
       <button onclick="navigate('instructor')">Instructor</button>
     </div>
     <div class="nav-actions">
-      <button class="icon-btn" onclick="openSearch()" aria-label="Search">
+      <button class="icon-btn" onclick="openSearch()" aria-label="Search (Ctrl+K)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
       <button class="icon-btn" onclick="openModal()" aria-label="Announcements">
@@ -776,13 +793,19 @@
   </div>
 </nav>
 
-<!-- ================= SEARCH OVERLAY ================= -->
-<div class="search-overlay" id="searchOverlay">
-  <div class="search-container">
-    <svg class="search-icon-inside" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" class="search-input" id="searchInput" placeholder="Search sessions, topics, problem sets..." oninput="handleSearch(event)">
-    <button class="search-close" onclick="closeSearch()" aria-label="Close search">&times;</button>
-    <p class="search-hint">Type to filter &middot; Press <kbd>Esc</kbd> to close</p>
+<!-- SEARCH OVERLAY (Quarto-style) -->
+<div class="search-overlay" id="searchOverlay" onclick="closeSearchOnOverlay(event)">
+  <div class="search-box" onclick="event.stopPropagation()">
+    <div class="search-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search sessions, topics, problem sets..." autocomplete="off" oninput="handleSearch(event)" onkeydown="handleSearchKeys(event)">
+      <button class="search-close" onclick="closeSearch()" aria-label="Close">&times;</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+    <div class="search-footer">
+      <span><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+      <span><kbd>Enter</kbd> to open &middot; <kbd>Esc</kbd> to close</span>
+    </div>
   </div>
 </div>
 
@@ -828,7 +851,6 @@
   <main>
     <div class="container">
 
-      <!-- Countdown -->
       <div class="countdown-bar">
         <div class="cd-label">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -842,16 +864,12 @@
         </div>
       </div>
 
-      <!-- Sessions -->
       <section id="sessions">
         <h2><span class="h2-text">Sessions</span></h2>
         <p>Click any session to open its full page with materials, notebook, and topics.</p>
-        <div class="session-grid" id="sessionGrid">
-          <!-- Filled by JS -->
-        </div>
+        <div class="session-grid" id="sessionGrid"></div>
       </section>
 
-      <!-- Problem Sets -->
       <section id="problemsets">
         <h2><span class="h2-text">Problem Sets</span></h2>
         <div class="session-grid">
@@ -888,7 +906,6 @@
         </div>
       </section>
 
-      <!-- Instructor -->
       <section id="instructor">
         <h2><span class="h2-text">Instructor</span></h2>
         <div class="instructor-card">
@@ -904,7 +921,9 @@
   </main>
 </div>
 
-<!-- ================= SESSION 1 PAGE ================= -->
+<!-- All detail pages are same as before (s1, s2, s3, s4, s5, ps1) -->
+
+<!-- SESSION 1 -->
 <div class="page" id="page-s1">
   <header class="session-detail-header">
     <div class="container">
@@ -923,10 +942,7 @@
   <main>
     <div class="container">
       <div class="detail-card">
-        <h3>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          Topics Covered
-        </h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Topics Covered</h3>
         <ul class="session-topics">
           <li>Running Python code in Google Colab</li>
           <li>Variables, data types, and arithmetic operations</li>
@@ -937,14 +953,10 @@
         </ul>
       </div>
       <div class="detail-card">
-        <h3>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Materials
-        </h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
           <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-1/PYTHON_SESSION_1_.ipynb" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Open in Colab
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open in Colab
           </a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-1/PYTHON_SESSION_1_.ipynb" target="_blank" rel="noopener">View Notebook</a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-1" target="_blank" rel="noopener">Session Folder</a>
@@ -962,13 +974,12 @@
   </main>
 </div>
 
-<!-- ================= SESSION 2 PAGE ================= -->
+<!-- SESSION 2 -->
 <div class="page" id="page-s2">
   <header class="session-detail-header">
     <div class="container">
       <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to Home
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
       </button>
       <div class="detail-icon-large s2">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg>
@@ -981,10 +992,7 @@
   <main>
     <div class="container">
       <div class="detail-card">
-        <h3>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          Topics Covered
-        </h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Topics Covered</h3>
         <ul class="session-topics">
           <li>Conditional statements: if, elif, else</li>
           <li>Comparison operators</li>
@@ -995,14 +1003,10 @@
         </ul>
       </div>
       <div class="detail-card">
-        <h3>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Materials
-        </h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
           <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-2/PYTHON_SESSION_2.ipynb" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Open in Colab
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open in Colab
           </a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-2/PYTHON_SESSION_2.ipynb" target="_blank" rel="noopener">View Notebook</a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-2" target="_blank" rel="noopener">Session Folder</a>
@@ -1020,13 +1024,12 @@
   </main>
 </div>
 
-<!-- ================= SESSION 3 PAGE ================= -->
+<!-- SESSION 3 -->
 <div class="page" id="page-s3">
   <header class="session-detail-header">
     <div class="container">
       <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to Home
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
       </button>
       <div class="detail-icon-large s3">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
@@ -1039,19 +1042,14 @@
   <main>
     <div class="container">
       <div class="detail-card">
-        <h3>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          Materials
-        </h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
           <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-3/Python_Session_3.ipynb" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Open Notebook in Colab
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open Notebook in Colab
           </a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-3/Python_Session_3.ipynb" target="_blank" rel="noopener">View Notebook</a>
           <a class="btn" href="./sessions/session-3/academic_data.csv" download>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Dataset
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download Dataset
           </a>
           <a class="btn" href="./sessions/session-3/README.md" target="_blank" rel="noopener">View Instructions</a>
         </div>
@@ -1068,13 +1066,12 @@
   </main>
 </div>
 
-<!-- ================= SESSION 4 PAGE ================= -->
+<!-- SESSION 4 -->
 <div class="page" id="page-s4">
   <header class="session-detail-header">
     <div class="container">
       <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to Home
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
       </button>
       <div class="detail-icon-large s4">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
@@ -1087,10 +1084,7 @@
   <main>
     <div class="container">
       <div class="detail-card">
-        <h3>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          Topics Covered
-        </h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Topics Covered</h3>
         <ul class="session-topics">
           <li>Recap: variables, data types, and input</li>
           <li>Recap: conditionals, loops, and list operations</li>
@@ -1101,10 +1095,7 @@
         </ul>
       </div>
       <div class="detail-card">
-        <h3>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Materials
-        </h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-4" target="_blank" rel="noopener">Session Folder</a>
         </div>
@@ -1121,13 +1112,12 @@
   </main>
 </div>
 
-<!-- ================= SESSION 5 PAGE ================= -->
+<!-- SESSION 5 -->
 <div class="page" id="page-s5">
   <header class="session-detail-header">
     <div class="container">
       <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to Home
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
       </button>
       <div class="detail-icon-large s5">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
@@ -1141,15 +1131,10 @@
     <div class="container">
       <div class="notice-box">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <div>
-          <strong>Upcoming Session:</strong> This session introduces <strong>Exploratory Data Analysis (EDA)</strong> — the first real step of any data project. You will learn how to inspect, summarize, visualize, and question a dataset before any deeper analysis.
-        </div>
+        <div><strong>Upcoming Session:</strong> This session introduces <strong>Exploratory Data Analysis (EDA)</strong> — the first real step of any data project.</div>
       </div>
       <div class="detail-card">
-        <h3>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          Topics Covered
-        </h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Topics Covered</h3>
         <ul class="session-topics">
           <li>What is EDA and why it comes first</li>
           <li>Inspecting shape, columns, and data types</li>
@@ -1162,14 +1147,10 @@
         </ul>
       </div>
       <div class="detail-card">
-        <h3>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Materials
-        </h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
           <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-5/Python_Session_5.ipynb" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Open Notebook in Colab
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open Notebook in Colab
           </a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-5/Python_Session_5.ipynb" target="_blank" rel="noopener">View Notebook</a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-5" target="_blank" rel="noopener">Session Folder</a>
@@ -1187,13 +1168,12 @@
   </main>
 </div>
 
-<!-- ================= PS1 PAGE ================= -->
+<!-- PS1 -->
 <div class="page" id="page-ps1">
   <header class="session-detail-header">
     <div class="container">
       <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to Home
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
       </button>
       <div class="detail-icon-large ps">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
@@ -1206,14 +1186,10 @@
   <main>
     <div class="container">
       <div class="detail-card">
-        <h3>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Materials
-        </h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
           <a class="btn" href="./problem_sets/ps1/PS1_PYHTON%20SESSION%20BY%20RAMESH%20BENIWAL.pdf" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            View Questions (PDF)
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>View Questions (PDF)
           </a>
           <a class="btn btn-primary" href="./problem_sets/ps1/ps1_solution.html" target="_blank" rel="noopener">View Solutions (HTML)</a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/problem_sets/ps1/README.md" target="_blank" rel="noopener">Read Instructions</a>
@@ -1223,7 +1199,7 @@
   </main>
 </div>
 
-<!-- ================= FOOTER ================= -->
+<!-- FOOTER -->
 <footer>
   <div class="container">
     <p>Quant Society &mdash; Python Series</p>
@@ -1231,7 +1207,7 @@
   </div>
 </footer>
 
-<!-- ================= ANNOUNCEMENTS MODAL ================= -->
+<!-- ANNOUNCEMENTS MODAL -->
 <div class="modal-overlay" id="noticeModal" onclick="closeModalOnOverlay(event)">
   <div class="modal" role="dialog" aria-modal="true">
     <div class="modal-header">
@@ -1245,30 +1221,56 @@
       <div class="announce urgent">
         <span class="time">Latest &middot; Session 05</span>
         <div class="title">Session 5 &mdash; Exploratory Data Analysis</div>
-        This session introduces <strong>EDA</strong> — how to inspect, summarize, and visualize any dataset before deeper analysis. Bring your laptop and be ready to explore data hands-on.
+        This session introduces <strong>EDA</strong> — how to inspect, summarize, and visualize any dataset before deeper analysis.
       </div>
       <div class="announce success">
         <span class="time">New &middot; Session 04 Complete</span>
         <div class="title">Revision Session Finished</div>
-        Session 4 was a comprehensive revision of Sessions 1–3. Materials remain available in the session-4 folder.
+        Session 4 was a comprehensive revision of Sessions 1–3.
       </div>
       <div class="announce info">
         <span class="time">Reminder</span>
         <div class="title">Problem Set 1 Solutions Available</div>
-        Worked solutions with detailed reasoning for <strong>Problem Set 1</strong> are available. Click "Problem Set 1" on the home page.
+        Worked solutions with detailed reasoning for <strong>Problem Set 1</strong> are available.
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  /* Navbar */
+  /* ============ DATA (used by search) ============ */
+  const searchData = [
+    { id: 'home', page: 'home', icon: 'home', label: 'Home', title: 'Home Page', meta: 'Main dashboard with all sessions', keywords: 'home dashboard main index quant society python series' },
+    { id: 's1', page: 's1', icon: 's1', label: 'S1', title: 'Python Without Fear', meta: 'Session 01 · Fundamentals of Python', keywords: 'python variables data types strings booleans input colab marks calculator arithmetic session 1' },
+    { id: 's2', page: 's2', icon: 's2', label: 'S2', title: 'Making Python Think', meta: 'Session 02 · Conditionals and loops', keywords: 'if elif else loops range logical operators conditions for while session 2' },
+    { id: 's3', page: 's3', icon: 's3', label: 'S3', title: 'Data Handling & Preparation', meta: 'Session 03 · CSV files and datasets', keywords: 'csv dataset academic data handling preparation reading files session 3 pandas dataframe' },
+    { id: 's4', page: 's4', icon: 's4', label: 'S4', title: 'Revision Session', meta: 'Session 04 · Recap of Sessions 1-3', keywords: 'revision recap practice exercises recap session 4 mixed problems' },
+    { id: 's5', page: 's5', icon: 's5', label: 'S5', title: 'Exploratory Data Analysis', meta: 'Session 05 · EDA basics', keywords: 'eda exploratory data analysis missing values summary statistics mean median quartiles outliers distributions histograms box plots correlation scatter session 5' },
+    { id: 'ps1', page: 'ps1', icon: 'ps', label: 'PS1', title: 'Problem Set 1', meta: 'Based on Session 1', keywords: 'problem set 1 solutions pdf questions practice session 1' },
+    { id: 'instructor', page: 'home', icon: 'home', label: 'I', title: 'Instructor - Ramesh Beniwal', meta: 'Quant Society Club Coordinator', keywords: 'instructor ramesh beniwal teacher professor coordinator quant society economics' }
+  ];
+
+  /* ============ NAVBAR ============ */
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 10);
   });
 
-  /* Theme */
+  /* ============ DROPDOWNS ============ */
+  function toggleDropdown(id) {
+    const dropdown = document.getElementById(id);
+    const wasOpen = dropdown.classList.contains('open');
+    document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+    if (!wasOpen) dropdown.classList.add('open');
+    event.stopPropagation();
+  }
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+    }
+  });
+
+  /* ============ THEME ============ */
   function toggleTheme() {
     const current = document.documentElement.getAttribute('data-theme');
     const next = current === 'dark' ? 'light' : 'dark';
@@ -1283,16 +1285,14 @@
     }
   })();
 
-  /* Page Navigation */
+  /* ============ NAVIGATION ============ */
   function navigate(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     let targetPage = null;
     if (pageId === 'home' || pageId === 'sessions' || pageId === 'problemsets' || pageId === 'instructor') {
       targetPage = document.getElementById('page-home');
-    } else if (pageId.startsWith('s') && pageId.length <= 3) {
+    } else {
       targetPage = document.getElementById('page-' + pageId);
-    } else if (pageId === 'ps1') {
-      targetPage = document.getElementById('page-ps1');
     }
     if (targetPage) {
       targetPage.classList.add('active');
@@ -1309,26 +1309,99 @@
     }
     closeSearch();
     closeModal();
+    document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
   }
 
-  /* Search */
+  /* ============ SEARCH ============ */
   const searchOverlay = document.getElementById('searchOverlay');
   const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+  let selectedIndex = -1;
+  let currentResults = [];
+
   function openSearch() {
     searchOverlay.classList.add('open');
-    setTimeout(() => searchInput.focus(), 200);
+    setTimeout(() => { searchInput.focus(); searchInput.select(); }, 100);
+    renderSearchResults('');
   }
   function closeSearch() {
     searchOverlay.classList.remove('open');
     searchInput.value = '';
+    selectedIndex = -1;
   }
-  function handleSearch(e) {
-    // Simple — just scroll to sessions if user types
-    const q = e.target.value.toLowerCase().trim();
-    if (!q) return;
+  function closeSearchOnOverlay(e) {
+    if (e.target === searchOverlay) closeSearch();
   }
 
-  /* Modal */
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+  }
+  function highlight(text, query) {
+    if (!query) return escapeHtml(text);
+    const safeText = escapeHtml(text);
+    const q = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return safeText.replace(new RegExp('(' + q + ')', 'gi'), '<mark>$1</mark>');
+  }
+
+  function renderSearchResults(query) {
+    const q = (query || '').toLowerCase().trim();
+    currentResults = searchData.filter(item => {
+      if (!q) return true;
+      const haystack = (item.title + ' ' + item.meta + ' ' + item.keywords).toLowerCase();
+      return haystack.includes(q);
+    }).slice(0, 8);
+
+    selectedIndex = currentResults.length > 0 ? 0 : -1;
+
+    if (currentResults.length === 0) {
+      searchResults.innerHTML = `<div class="search-empty"><strong>No results found</strong>Try "session", "data", "python", "EDA"</div>`;
+      return;
+    }
+
+    searchResults.innerHTML = currentResults.map((item, i) => `
+      <button class="search-item ${i === selectedIndex ? 'selected' : ''}" data-index="${i}" onclick="navigateFromSearch(${i})">
+        <span class="search-item-icon ${item.icon}">${item.label}</span>
+        <span class="search-item-content">
+          <span class="search-item-title">${highlight(item.title, q)}</span>
+          <span class="search-item-meta">${highlight(item.meta, q)}</span>
+        </span>
+      </button>
+    `).join('');
+  }
+
+  function navigateFromSearch(index) {
+    const item = currentResults[index];
+    if (item) navigate(item.page);
+  }
+
+  function handleSearch(e) {
+    renderSearchResults(e.target.value);
+  }
+
+  function handleSearchKeys(e) {
+    if (currentResults.length === 0) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      selectedIndex = (selectedIndex + 1) % currentResults.length;
+      updateSelection();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      selectedIndex = (selectedIndex - 1 + currentResults.length) % currentResults.length;
+      updateSelection();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (selectedIndex >= 0) navigateFromSearch(selectedIndex);
+    }
+  }
+
+  function updateSelection() {
+    document.querySelectorAll('.search-item').forEach((el, i) => {
+      el.classList.toggle('selected', i === selectedIndex);
+      if (i === selectedIndex) el.scrollIntoView({ block: 'nearest' });
+    });
+  }
+
+  /* ============ MODAL ============ */
   const modal = document.getElementById('noticeModal');
   function openModal() {
     modal.classList.add('open');
@@ -1342,18 +1415,26 @@
     if (e.target === modal) closeModal();
   }
 
-  /* Keyboard */
+  /* ============ KEYBOARD SHORTCUTS ============ */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { closeModal(); closeSearch(); }
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
       e.preventDefault();
       openSearch();
     }
+    // Quarto-style: press "/" or "f" to open search (only when not typing in input)
+    if (!e.target.matches('input, textarea')) {
+      if (e.key === '/' || e.key === 'f') {
+        e.preventDefault();
+        openSearch();
+      }
+    }
   });
 
-  /* Progress */
+  /* ============ PROGRESS ============ */
   function toggleComplete(checkbox, key) {
     localStorage.setItem('progress_' + key, checkbox.checked ? '1' : '0');
+    buildSessionGrid(); // Refresh badges
   }
   function syncProgress() {
     ['s1', 's2', 's3', 's4', 's5'].forEach(k => {
@@ -1363,7 +1444,7 @@
   }
   syncProgress();
 
-  /* Session grid (home page) */
+  /* ============ SESSION GRID ============ */
   const sessions = [
     { id: 's1', num: '01', title: 'Python Without Fear', meta: 'Fundamentals & basics', icon: 's1' },
     { id: 's2', num: '02', title: 'Making Python Think', meta: 'Conditionals & loops', icon: 's2' },
@@ -1410,7 +1491,7 @@
   }
   buildSessionGrid();
 
-  /* Countdown */
+  /* ============ COUNTDOWN ============ */
   const schedule = [
     new Date(2026, 7,  1, 16, 0, 0),
     new Date(2026, 8,  1, 16, 0, 0),

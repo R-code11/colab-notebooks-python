@@ -40,7 +40,6 @@
   }
   a { color: inherit; }
 
-  /* ================= NAVBAR ================= */
   .navbar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     background: var(--bg-nav); backdrop-filter: blur(20px) saturate(180%);
@@ -75,7 +74,6 @@
     display: inline-flex; align-items: center; gap: 6px;
   }
   .nav-links > a:hover, .nav-links > button:hover { color: var(--indigo); background: rgba(79, 70, 229, 0.06); }
-
   .nav-dropdown { position: relative; }
   .nav-dropdown > button::after {
     content: "";
@@ -83,8 +81,7 @@
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
     border-top: 5px solid currentColor;
-    margin-left: 6px;
-    opacity: 0.5;
+    margin-left: 6px; opacity: 0.5;
     transition: transform 0.2s ease, opacity 0.2s ease;
     display: inline-block;
   }
@@ -94,16 +91,11 @@
     position: absolute; top: calc(100% + 10px); left: 0;
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 12px; padding: 6px;
-    box-shadow: var(--shadow-lg);
-    min-width: 250px;
-    opacity: 0; visibility: hidden;
-    transform: translateY(-6px);
-    transition: all 0.2s ease;
-    z-index: 100;
+    box-shadow: var(--shadow-lg); min-width: 250px;
+    opacity: 0; visibility: hidden; transform: translateY(-6px);
+    transition: all 0.2s ease; z-index: 100;
   }
-  .nav-dropdown.open .dropdown-menu {
-    opacity: 1; visibility: visible; transform: translateY(0);
-  }
+  .nav-dropdown.open .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
   .dropdown-menu button {
     display: flex; align-items: center; gap: 10px;
     width: 100%; padding: 9px 12px;
@@ -114,7 +106,6 @@
   }
   .dropdown-menu button:hover { background: var(--bg-alt); color: var(--indigo); }
   .dropdown-menu .dm-divider { height: 1px; background: var(--border); margin: 6px 8px; }
-
   .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
   .icon-btn {
     width: 38px; height: 38px; border-radius: 10px;
@@ -122,10 +113,7 @@
     display: flex; align-items: center; justify-content: center; cursor: pointer;
     transition: all 0.2s ease; position: relative;
   }
-  .icon-btn:hover {
-    border-color: var(--indigo); color: var(--indigo);
-    transform: translateY(-1px); box-shadow: var(--shadow-md);
-  }
+  .icon-btn:hover { border-color: var(--indigo); color: var(--indigo); transform: translateY(-1px); box-shadow: var(--shadow-md); }
   .icon-btn .badge {
     position: absolute; top: -5px; right: -5px;
     background: linear-gradient(135deg, var(--rose), var(--pink));
@@ -137,7 +125,6 @@
   .theme-toggle .moon { display: none; }
   [data-theme="dark"] .theme-toggle .moon { display: block; }
 
-  /* ================= SEARCH (Quarto-style) ================= */
   .search-overlay {
     position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55);
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -151,8 +138,7 @@
     background: var(--bg-card); border-radius: 18px;
     width: 100%; max-width: 680px;
     box-shadow: 0 40px 100px rgba(0,0,0,0.4);
-    border: 1px solid var(--border);
-    overflow: hidden;
+    border: 1px solid var(--border); overflow: hidden;
     transform: scale(0.96) translateY(-10px);
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
@@ -175,25 +161,16 @@
     transition: all 0.2s ease;
   }
   .search-close:hover { background: var(--border); color: var(--text); }
-
-  .search-results {
-    max-height: 420px; overflow-y: auto;
-    padding: 8px;
-  }
+  .search-results { max-height: 420px; overflow-y: auto; padding: 8px; }
   .search-results::-webkit-scrollbar { width: 8px; }
   .search-results::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-  .search-empty {
-    text-align: center; padding: 40px 20px; color: var(--muted);
-    font-size: 0.9rem;
-  }
+  .search-empty { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 0.9rem; }
   .search-empty strong { display: block; color: var(--text); margin-bottom: 6px; }
   .search-item {
     display: flex; align-items: flex-start; gap: 14px;
     padding: 12px 14px; border-radius: 10px;
     cursor: pointer; transition: background 0.15s ease;
-    text-align: left;
-    background: none; border: none; width: 100%;
-    font-family: inherit;
+    text-align: left; background: none; border: none; width: 100%; font-family: inherit;
   }
   .search-item:hover, .search-item.selected { background: var(--bg-alt); }
   .search-item-icon {
@@ -207,13 +184,13 @@
   .search-item-icon.s3 { background: linear-gradient(135deg, var(--amber), var(--rose)); }
   .search-item-icon.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
   .search-item-icon.s5 { background: linear-gradient(135deg, var(--cyan), var(--emerald)); }
+  .search-item-icon.s6 { background: linear-gradient(135deg, #f43f5e, #8b5cf6); }
   .search-item-icon.ps { background: linear-gradient(135deg, var(--cyan), var(--indigo)); }
   .search-item-icon.home { background: linear-gradient(135deg, #64748b, #94a3b8); }
   .search-item-content { flex: 1; min-width: 0; }
   .search-item-title {
     font-size: 0.92rem; font-weight: 700; color: var(--text);
-    margin-bottom: 2px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .search-item-meta {
     font-size: 0.78rem; color: var(--muted);
@@ -233,7 +210,6 @@
     color: var(--text-soft);
   }
 
-  /* ================= PAGES ================= */
   .page { display: none; }
   .page.active { display: block; animation: pageFadeIn 0.4s ease; }
   @keyframes pageFadeIn {
@@ -241,7 +217,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ================= HERO ================= */
   header.hero {
     position: relative; padding: 140px 24px 60px;
     background:
@@ -284,10 +259,7 @@
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .hero-subtitle {
-    font-size: 1.18rem; color: var(--muted);
-    max-width: 640px; margin-bottom: 18px; line-height: 1.6;
-  }
+  .hero-subtitle { font-size: 1.18rem; color: var(--muted); max-width: 640px; margin-bottom: 18px; line-height: 1.6; }
   .hero-affiliation {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 0.9rem; color: var(--muted); font-weight: 500;
@@ -295,20 +267,14 @@
     border: 1px solid var(--border); border-radius: 8px;
     margin-bottom: 48px; box-shadow: var(--shadow-sm);
   }
-  .hero-stats {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 14px; max-width: 760px;
-  }
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 760px; }
   .stat-card {
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 16px; padding: 20px 18px; box-shadow: var(--shadow-sm);
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative; overflow: hidden;
   }
-  .stat-card:hover {
-    transform: translateY(-4px); box-shadow: var(--shadow-md);
-    border-color: rgba(79, 70, 229, 0.25);
-  }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(79, 70, 229, 0.25); }
   .stat-card .stat-icon {
     width: 34px; height: 34px; border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
@@ -319,14 +285,8 @@
   .stat-card .stat-icon.c2 { background: linear-gradient(135deg, var(--sky), var(--emerald)); }
   .stat-card .stat-icon.c3 { background: linear-gradient(135deg, var(--amber), var(--rose)); }
   .stat-card .stat-icon.c4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
-  .stat-card .stat-value {
-    font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em;
-    color: var(--text); line-height: 1; margin-bottom: 4px;
-  }
-  .stat-card .stat-label {
-    font-size: 0.74rem; color: var(--muted); font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.06em;
-  }
+  .stat-card .stat-value { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text); line-height: 1; margin-bottom: 4px; }
+  .stat-card .stat-label { font-size: 0.74rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
 
   main { padding: 48px 0 96px; }
   section { margin-bottom: 80px; }
@@ -336,8 +296,7 @@
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
   }
   h2::before {
-    content: "";
-    width: 8px; height: 8px;
+    content: ""; width: 8px; height: 8px;
     background: linear-gradient(135deg, var(--indigo), var(--violet));
     border-radius: 50%;
     box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15), 0 0 14px rgba(79, 70, 229, 0.5);
@@ -345,13 +304,11 @@
   }
   h2 .h2-text {
     background: linear-gradient(135deg, var(--text) 0%, var(--indigo) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
+    -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   p { margin-bottom: 16px; color: var(--text-soft); }
 
-  /* COUNTDOWN */
   .countdown-bar {
     background: linear-gradient(135deg, var(--indigo), var(--violet) 60%, var(--pink));
     color: #fff; padding: 20px 28px; border-radius: 18px;
@@ -365,14 +322,8 @@
     background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
     animation: shine 4s linear infinite; pointer-events: none;
   }
-  @keyframes shine {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-  .countdown-bar .cd-label {
-    display: flex; align-items: center; gap: 10px;
-    font-weight: 700; font-size: 0.95rem; position: relative; z-index: 1;
-  }
+  @keyframes shine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+  .countdown-bar .cd-label { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.95rem; position: relative; z-index: 1; }
   .countdown-bar .cd-timer { display: flex; gap: 10px; position: relative; z-index: 1; }
   .cd-unit {
     background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(8px);
@@ -381,54 +332,24 @@
     text-align: center; min-width: 62px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
-  .cd-unit .cd-num {
-    font-family: 'JetBrains Mono', monospace; font-size: 1.35rem;
-    font-weight: 700; line-height: 1; display: block;
-  }
-  .cd-unit .cd-lbl {
-    font-size: 0.65rem; text-transform: uppercase;
-    letter-spacing: 0.1em; opacity: 0.85; margin-top: 4px;
-    display: block; font-weight: 600;
-  }
+  .cd-unit .cd-num { font-family: 'JetBrains Mono', monospace; font-size: 1.35rem; font-weight: 700; line-height: 1; display: block; }
+  .cd-unit .cd-lbl { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.85; margin-top: 4px; display: block; font-weight: 600; }
 
-  /* SESSION BUTTONS */
-  .session-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 18px;
-  }
+  .session-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
   .session-btn {
-    background: var(--bg-card);
-    border: 1.5px solid var(--border);
-    border-radius: 18px;
-    padding: 22px 24px;
-    cursor: pointer;
-    text-align: left;
-    font-family: inherit;
-    color: var(--text);
+    background: var(--bg-card); border: 1.5px solid var(--border);
+    border-radius: 18px; padding: 22px 24px; cursor: pointer;
+    text-align: left; font-family: inherit; color: var(--text);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    min-height: 160px;
+    position: relative; overflow: hidden; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column; gap: 14px; min-height: 160px;
   }
   .session-btn::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--indigo), var(--violet));
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; background: linear-gradient(90deg, var(--indigo), var(--violet));
+    opacity: 0; transition: opacity 0.3s ease;
   }
-  .session-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(79, 70, 229, 0.4);
-  }
+  .session-btn:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(79, 70, 229, 0.4); }
   .session-btn:hover::before { opacity: 1; }
   .session-btn.active {
     border-color: transparent;
@@ -438,11 +359,7 @@
   }
   .session-btn.active::before { opacity: 1; }
   .session-btn.done { opacity: 0.75; }
-  .session-btn-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+  .session-btn-header { display: flex; align-items: center; gap: 14px; }
   .session-btn-icon {
     width: 46px; height: 46px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
@@ -454,15 +371,10 @@
   .session-btn-icon.s3 { background: linear-gradient(135deg, var(--amber), var(--rose)); }
   .session-btn-icon.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
   .session-btn-icon.s5 { background: linear-gradient(135deg, var(--cyan), var(--emerald)); }
+  .session-btn-icon.s6 { background: linear-gradient(135deg, #f43f5e, #8b5cf6); box-shadow: 0 8px 18px -6px rgba(244, 63, 94, 0.5); }
   .session-btn-icon.ps { background: linear-gradient(135deg, var(--cyan), var(--indigo)); }
-  .session-btn-title {
-    font-size: 1.05rem; font-weight: 700;
-    letter-spacing: -0.015em; color: var(--text);
-    margin-bottom: 2px;
-  }
-  .session-btn-meta {
-    font-size: 0.8rem; color: var(--muted); font-weight: 500;
-  }
+  .session-btn-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.015em; color: var(--text); margin-bottom: 2px; }
+  .session-btn-meta { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
   .session-btn-label {
     display: flex; align-items: center; justify-content: space-between;
     margin-top: auto; padding-top: 14px;
@@ -476,26 +388,22 @@
     color: #fff; font-size: 0.6rem; font-weight: 800;
     padding: 2px 8px; border-radius: 999px;
     text-transform: uppercase; letter-spacing: 0.06em;
-    margin-left: auto;
-    animation: pulseBadge 2.5s ease-in-out infinite;
+    margin-left: auto; animation: pulseBadge 2.5s ease-in-out infinite;
   }
   @keyframes pulseBadge {
     0%, 100% { box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3); }
     50% { box-shadow: 0 4px 20px rgba(225, 29, 72, 0.6); }
   }
   .badge-done {
-    background: rgba(5, 150, 105, 0.15);
-    color: var(--emerald);
+    background: rgba(5, 150, 105, 0.15); color: var(--emerald);
     font-size: 0.6rem; font-weight: 800;
     padding: 2px 8px; border-radius: 999px;
     text-transform: uppercase; letter-spacing: 0.06em;
     margin-left: auto;
   }
 
-  /* DETAIL PAGE */
   .session-detail-header {
-    position: relative;
-    padding: 140px 24px 60px;
+    position: relative; padding: 140px 24px 60px;
     background:
       radial-gradient(900px 500px at 85% -10%, rgba(124, 58, 237, 0.14), transparent 60%),
       radial-gradient(700px 400px at 0% 20%, rgba(79, 70, 229, 0.12), transparent 60%),
@@ -522,6 +430,7 @@
   .detail-icon-large.s3 { background: linear-gradient(135deg, var(--amber), var(--rose)); }
   .detail-icon-large.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
   .detail-icon-large.s5 { background: linear-gradient(135deg, var(--cyan), var(--emerald)); }
+  .detail-icon-large.s6 { background: linear-gradient(135deg, #f43f5e, #8b5cf6); box-shadow: 0 16px 32px -12px rgba(244, 63, 94, 0.6); }
   .detail-icon-large.ps { background: linear-gradient(135deg, var(--cyan), var(--indigo)); }
   .detail-title {
     font-size: 2.5rem; font-weight: 800; line-height: 1.1;
@@ -530,10 +439,7 @@
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .detail-meta {
-    font-size: 1.1rem; color: var(--muted);
-    max-width: 640px; margin-bottom: 16px;
-  }
+  .detail-meta { font-size: 1.1rem; color: var(--muted); max-width: 640px; margin-bottom: 16px; }
   .detail-badge {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 0.78rem; font-weight: 700; padding: 6px 14px;
@@ -574,18 +480,13 @@
     transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1); position: relative;
   }
   .btn svg { flex-shrink: 0; }
-  .btn:hover {
-    transform: translateY(-2px); box-shadow: var(--shadow-md);
-    border-color: rgba(79, 70, 229, 0.3); color: var(--indigo);
-  }
+  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: rgba(79, 70, 229, 0.3); color: var(--indigo); }
   .btn-primary {
     background: linear-gradient(135deg, var(--indigo), var(--violet));
     color: #fff; border-color: transparent;
     box-shadow: 0 10px 24px -8px rgba(79, 70, 229, 0.6);
   }
-  .btn-primary:hover {
-    color: #fff; box-shadow: 0 16px 32px -10px rgba(79, 70, 229, 0.75);
-  }
+  .btn-primary:hover { color: #fff; box-shadow: 0 16px 32px -10px rgba(79, 70, 229, 0.75); }
   .notice-box {
     background: linear-gradient(135deg, rgba(2, 132, 199, 0.1), rgba(59, 130, 246, 0.06));
     color: var(--sky); padding: 18px 20px; border-radius: 14px;
@@ -596,7 +497,6 @@
   [data-theme="dark"] .notice-box { background: rgba(2, 132, 199, 0.15); color: #7dd3fc; }
   .notice-box svg { flex-shrink: 0; margin-top: 2px; }
   .notice-box strong { font-weight: 700; }
-
   .mark-complete {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 0.85rem; font-weight: 600; color: var(--muted);
@@ -627,21 +527,15 @@
     display: flex; align-items: center; justify-content: space-between;
     gap: 12px; flex-wrap: wrap;
   }
-  .detail-progress span:first-child {
-    font-size: 0.9rem; font-weight: 600; color: var(--text-soft);
-  }
+  .detail-progress span:first-child { font-size: 0.9rem; font-weight: 600; color: var(--text-soft); }
 
-  /* INSTRUCTOR */
   .instructor-card {
     display: flex; align-items: center; gap: 22px; padding: 24px;
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 16px; box-shadow: var(--shadow-sm);
     transition: all 0.3s ease;
   }
-  .instructor-card:hover {
-    transform: translateY(-3px); box-shadow: var(--shadow-md);
-    border-color: rgba(79, 70, 229, 0.3);
-  }
+  .instructor-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(79, 70, 229, 0.3); }
   .instructor-avatar {
     width: 60px; height: 60px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
@@ -649,28 +543,19 @@
     flex-shrink: 0; box-shadow: 0 10px 24px -8px rgba(79, 70, 229, 0.5);
     background: linear-gradient(135deg, var(--indigo), var(--violet));
   }
-  .instructor-info h4 {
-    font-size: 1.02rem; font-weight: 700; margin-bottom: 4px; color: var(--text);
-  }
-  .instructor-info p {
-    font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.5;
-  }
+  .instructor-info h4 { font-size: 1.02rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+  .instructor-info p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.5; }
 
-  /* FOOTER */
   footer {
     border-top: 1px solid var(--border); padding: 40px 24px;
     background: linear-gradient(180deg, var(--bg-alt), var(--bg));
     font-size: 0.9rem; color: var(--muted);
   }
-  footer .container {
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 16px;
-  }
+  footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
   footer p { margin: 0; color: var(--muted); }
   footer a { color: var(--indigo); text-decoration: none; font-weight: 600; }
   footer a:hover { color: var(--indigo-dark); text-decoration: underline; }
 
-  /* MODAL */
   .modal-overlay {
     position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
     backdrop-filter: blur(8px); display: flex;
@@ -694,10 +579,7 @@
     position: sticky; top: 0; background: var(--bg-card);
     border-radius: 20px 20px 0 0; z-index: 1;
   }
-  .modal-header h3 {
-    font-size: 1.1rem; font-weight: 700; color: var(--text);
-    display: flex; align-items: center; gap: 10px;
-  }
+  .modal-header h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 10px; }
   .modal-header h3 svg { color: var(--indigo); }
   .modal-close {
     background: none; border: none; font-size: 1.7rem;
@@ -714,17 +596,9 @@
   .announce.urgent  { background: rgba(225, 29, 72, 0.08); border-color: var(--rose); color: var(--text-soft); }
   .announce.success { background: rgba(5, 150, 105, 0.08); border-color: var(--emerald); color: var(--text-soft); }
   .announce.info    { background: rgba(2, 132, 199, 0.08); border-color: var(--sky); color: var(--text-soft); }
-  .announce .title {
-    font-weight: 700; font-size: 0.98rem; margin-bottom: 5px;
-    display: flex; align-items: center; gap: 8px; color: var(--text);
-  }
-  .announce .time {
-    font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.08em; font-weight: 700;
-    opacity: 0.7; margin-bottom: 8px; display: block;
-  }
+  .announce .title { font-weight: 700; font-size: 0.98rem; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; color: var(--text); }
+  .announce .time { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; opacity: 0.7; margin-bottom: 8px; display: block; }
 
-  /* RESPONSIVE */
   @media (max-width: 860px) {
     .nav-links { display: none; }
     .hero-stats { grid-template-columns: repeat(2, 1fr); }
@@ -779,7 +653,8 @@
           <button onclick="navigate('s2')"><span class="search-item-icon s2" style="width:24px;height:24px;font-size:0.6rem;">02</span>Making Python Think</button>
           <button onclick="navigate('s3')"><span class="search-item-icon s3" style="width:24px;height:24px;font-size:0.6rem;">03</span>Data Handling &amp; Preparation</button>
           <button onclick="navigate('s4')"><span class="search-item-icon s4" style="width:24px;height:24px;font-size:0.6rem;">04</span>Revision Session</button>
-          <button onclick="navigate('s5')"><span class="search-item-icon s5" style="width:24px;height:24px;font-size:0.6rem;">05</span>Exploratory Data Analysis</button>
+          <button onclick="navigate('s5')"><span class="search-item-icon s5" style="width:24px;height:24px;font-size:0.6rem;">05</span>Intro to EDA</button>
+          <button onclick="navigate('s6')"><span class="search-item-icon s6" style="width:24px;height:24px;font-size:0.6rem;">06</span>Detailed EDA</button>
         </div>
       </div>
       <div class="nav-dropdown" id="navProblemSets">
@@ -808,7 +683,7 @@
   </div>
 </nav>
 
-<!-- SEARCH OVERLAY -->
+<!-- SEARCH -->
 <div class="search-overlay" id="searchOverlay" onclick="closeSearchOnOverlay(event)">
   <div class="search-box" onclick="event.stopPropagation()">
     <div class="search-header">
@@ -824,7 +699,7 @@
   </div>
 </div>
 
-<!-- HOME PAGE -->
+<!-- ================= HOME ================= -->
 <div class="page active" id="page-home">
   <header class="hero">
     <div class="container">
@@ -841,7 +716,7 @@
       <div class="hero-stats">
         <div class="stat-card">
           <div class="stat-icon c1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-          <div class="stat-value">5</div>
+          <div class="stat-value">6</div>
           <div class="stat-label">Sessions</div>
         </div>
         <div class="stat-card">
@@ -851,7 +726,7 @@
         </div>
         <div class="stat-card">
           <div class="stat-icon c3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-          <div class="stat-value">1</div>
+          <div class="stat-value">2</div>
           <div class="stat-label">Datasets</div>
         </div>
         <div class="stat-card">
@@ -865,7 +740,6 @@
 
   <main>
     <div class="container">
-
       <div class="countdown-bar">
         <div class="cd-label">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -930,7 +804,6 @@
           </div>
         </div>
       </section>
-
     </div>
   </main>
 </div>
@@ -939,12 +812,8 @@
 <div class="page" id="page-s1">
   <header class="session-detail-header">
     <div class="container">
-      <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
-      </button>
-      <div class="detail-icon-large s1">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-      </div>
+      <button class="back-btn" onclick="navigate('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home</button>
+      <div class="detail-icon-large s1"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
       <div class="detail-badge">Session 01</div>
       <h1 class="detail-title">Python Without Fear</h1>
       <p class="detail-meta">Introduction to Python programming and fundamental concepts.</p>
@@ -966,19 +835,13 @@
       <div class="detail-card">
         <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
-          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-1/PYTHON_SESSION_1_.ipynb" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open in Colab
-          </a>
+          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-1/PYTHON_SESSION_1_.ipynb" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open in Colab</a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-1/PYTHON_SESSION_1_.ipynb" target="_blank" rel="noopener">View Notebook</a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-1" target="_blank" rel="noopener">Session Folder</a>
         </div>
         <div class="detail-progress">
           <span>Mark your progress:</span>
-          <label class="mark-complete">
-            <input type="checkbox" onchange="toggleComplete(this, 's1')" data-key="s1">
-            <span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-            <span class="check-label">Mark as done</span>
-          </label>
+          <label class="mark-complete"><input type="checkbox" onchange="toggleComplete(this, 's1')" data-key="s1"><span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="check-label">Mark as done</span></label>
         </div>
       </div>
     </div>
@@ -989,12 +852,8 @@
 <div class="page" id="page-s2">
   <header class="session-detail-header">
     <div class="container">
-      <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
-      </button>
-      <div class="detail-icon-large s2">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg>
-      </div>
+      <button class="back-btn" onclick="navigate('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home</button>
+      <div class="detail-icon-large s2"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg></div>
       <div class="detail-badge">Session 02</div>
       <h1 class="detail-title">Making Python Think</h1>
       <p class="detail-meta">Conditional statements, logical operators, and loops.</p>
@@ -1016,19 +875,13 @@
       <div class="detail-card">
         <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
-          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-2/PYTHON_SESSION_2.ipynb" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open in Colab
-          </a>
+          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-2/PYTHON_SESSION_2.ipynb" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open in Colab</a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-2/PYTHON_SESSION_2.ipynb" target="_blank" rel="noopener">View Notebook</a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-2" target="_blank" rel="noopener">Session Folder</a>
         </div>
         <div class="detail-progress">
           <span>Mark your progress:</span>
-          <label class="mark-complete">
-            <input type="checkbox" onchange="toggleComplete(this, 's2')" data-key="s2">
-            <span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-            <span class="check-label">Mark as done</span>
-          </label>
+          <label class="mark-complete"><input type="checkbox" onchange="toggleComplete(this, 's2')" data-key="s2"><span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="check-label">Mark as done</span></label>
         </div>
       </div>
     </div>
@@ -1039,12 +892,8 @@
 <div class="page" id="page-s3">
   <header class="session-detail-header">
     <div class="container">
-      <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
-      </button>
-      <div class="detail-icon-large s3">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-      </div>
+      <button class="back-btn" onclick="navigate('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home</button>
+      <div class="detail-icon-large s3"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
       <div class="detail-badge">Session 03</div>
       <h1 class="detail-title">Data Handling &amp; Preparation</h1>
       <p class="detail-meta">Working with real datasets, reading CSV files, and preparing data for analysis.</p>
@@ -1055,22 +904,14 @@
       <div class="detail-card">
         <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
-          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-3/Python_Session_3.ipynb" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open Notebook in Colab
-          </a>
+          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-3/Python_Session_3.ipynb" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open Notebook in Colab</a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-3/Python_Session_3.ipynb" target="_blank" rel="noopener">View Notebook</a>
-          <a class="btn" href="./sessions/session-3/academic_data.csv" download>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download Dataset
-          </a>
+          <a class="btn" href="./sessions/session-3/academic_data.csv" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download Dataset</a>
           <a class="btn" href="./sessions/session-3/README.md" target="_blank" rel="noopener">View Instructions</a>
         </div>
         <div class="detail-progress">
           <span>Mark your progress:</span>
-          <label class="mark-complete">
-            <input type="checkbox" onchange="toggleComplete(this, 's3')" data-key="s3">
-            <span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-            <span class="check-label">Mark as done</span>
-          </label>
+          <label class="mark-complete"><input type="checkbox" onchange="toggleComplete(this, 's3')" data-key="s3"><span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="check-label">Mark as done</span></label>
         </div>
       </div>
     </div>
@@ -1081,12 +922,8 @@
 <div class="page" id="page-s4">
   <header class="session-detail-header">
     <div class="container">
-      <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
-      </button>
-      <div class="detail-icon-large s4">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-      </div>
+      <button class="back-btn" onclick="navigate('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home</button>
+      <div class="detail-icon-large s4"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
       <div class="detail-badge">Session 04</div>
       <h1 class="detail-title">Revision Session</h1>
       <p class="detail-meta">Comprehensive revision of everything covered in Sessions 1&ndash;3.</p>
@@ -1112,11 +949,7 @@
         </div>
         <div class="detail-progress">
           <span>Mark your progress:</span>
-          <label class="mark-complete">
-            <input type="checkbox" onchange="toggleComplete(this, 's4')" data-key="s4">
-            <span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-            <span class="check-label">Mark as done</span>
-          </label>
+          <label class="mark-complete"><input type="checkbox" onchange="toggleComplete(this, 's4')" data-key="s4"><span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="check-label">Mark as done</span></label>
         </div>
       </div>
     </div>
@@ -1127,53 +960,108 @@
 <div class="page" id="page-s5">
   <header class="session-detail-header">
     <div class="container">
-      <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
-      </button>
-      <div class="detail-icon-large s5">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+      <button class="back-btn" onclick="navigate('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home</button>
+      <div class="detail-icon-large s5"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
+      <div class="detail-badge">Session 05</div>
+      <h1 class="detail-title">Introduction to EDA</h1>
+      <p class="detail-meta">First look at real datasets — loading, inspecting, and first-pass exploration.</p>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="detail-card">
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Topics Covered</h3>
+        <ul class="session-topics">
+          <li>Loading a CSV into pandas</li>
+          <li>First look: head, tail, shape, columns</li>
+          <li>df.info() — dtypes and missing values</li>
+          <li>df.describe() — numeric summary</li>
+          <li>df.describe(include='object') — categorical summary</li>
+          <li>First scatter plot (study_hours vs marks)</li>
+        </ul>
       </div>
-      <div class="detail-badge" style="background: linear-gradient(135deg, var(--rose), var(--pink)); color: white;">Session 05 &middot; Active</div>
-      <h1 class="detail-title">Exploratory Data Analysis</h1>
-      <p class="detail-meta">Understanding any dataset through summary statistics, distributions, outliers, and relationships.</p>
+      <div class="detail-card">
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-5/Python_Session_5.ipynb" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open Notebook in Colab</a>
+          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-5/Python_Session_5.ipynb" target="_blank" rel="noopener">View Notebook</a>
+          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-5" target="_blank" rel="noopener">Session Folder</a>
+        </div>
+        <div class="detail-progress">
+          <span>Mark your progress:</span>
+          <label class="mark-complete"><input type="checkbox" onchange="toggleComplete(this, 's5')" data-key="s5"><span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="check-label">Mark as done</span></label>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ================= SESSION 6 (CURRENT) ================= -->
+<div class="page" id="page-s6">
+  <header class="session-detail-header">
+    <div class="container">
+      <button class="back-btn" onclick="navigate('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home</button>
+      <div class="detail-icon-large s6">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+      </div>
+      <div class="detail-badge" style="background: linear-gradient(135deg, var(--rose), var(--pink)); color: white;">Session 06 &middot; Active</div>
+      <h1 class="detail-title">Exploratory Data Analysis — Detailed</h1>
+      <p class="detail-meta">Deep dive into data quality, variable types, summary statistics, outliers, and relationships — a complete 2-hour EDA workshop.</p>
     </div>
   </header>
   <main>
     <div class="container">
       <div class="notice-box">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <div><strong>Upcoming Session:</strong> This session introduces <strong>Exploratory Data Analysis (EDA)</strong> — the first real step of any data project.</div>
+        <div><strong>Upcoming Session (Tomorrow, Friday, 4–6 PM):</strong> This is the complete EDA workshop. We move from "what is this dataset" to "what story does the data tell" — covering data quality, variable types, full summary statistics, outlier detection with IQR, distributions, and multivariate relationships. Bring your laptop with the <strong>academic_data.csv</strong> file ready.</div>
       </div>
+
       <div class="detail-card">
-        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Topics Covered</h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Topics Covered (2-Hour Deep Dive)</h3>
         <ul class="session-topics">
-          <li>What is EDA and why it comes first</li>
-          <li>Inspecting shape, columns, and data types</li>
-          <li>Handling missing values</li>
-          <li>Summary statistics: mean, median, quartiles</li>
-          <li>Distributions: histograms and box plots</li>
-          <li>Detecting outliers with the IQR method</li>
-          <li>Relationships: scatter plots and correlation</li>
-          <li>Hands-on EDA checklist on a real dataset</li>
+          <li>Setup &amp; Session 5 recap</li>
+          <li>Data quality — missing values, duplicates, placeholder values</li>
+          <li>Categorical vs Continuous (nominal, ordinal, discrete, identifier)</li>
+          <li>Why `year` is numeric but categorical in nature</li>
+          <li>Continuous summary — mean, median, mode, std, variance, IQR, CV, percentiles, skewness, kurtosis</li>
+          <li>Reusable summary function for any continuous column</li>
+          <li>Categorical summary — frequency, percent, cumulative percent</li>
+          <li>Univariate plots — histogram, KDE, boxplot, countplot, pie chart</li>
+          <li>Outliers — IQR rule and impossible-value checks</li>
+          <li>Bivariate — scatter + trend line, correlation heatmap</li>
+          <li>Groupby, pivot tables, crosstabs, chi-square tests</li>
+          <li>Multivariate — hue plots, pairplot, pd.cut / pd.qcut binning</li>
+          <li>The `uses_ai` feature engineering example</li>
+          <li>Reusable `quick_eda()` function</li>
+          <li>Insights table — collective interpretation in class</li>
+          <li>9 practice exercises (easy, medium, challenging)</li>
+          <li>One-page cheat sheet for future projects</li>
         </ul>
       </div>
+
       <div class="detail-card">
         <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
-          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-5/Python_Session_5.ipynb" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open Notebook in Colab
-          </a>
-          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-5/Python_Session_5.ipynb" target="_blank" rel="noopener">View Notebook</a>
-          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-5" target="_blank" rel="noopener">Session Folder</a>
+          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-6/Python_Session_6.ipynb" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open Notebook in Colab</a>
+          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-6/Python_Session_6.ipynb" target="_blank" rel="noopener">View Notebook</a>
+          <a class="btn" href="./sessions/session-3/academic_data.csv" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download Dataset</a>
+          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-6" target="_blank" rel="noopener">Session Folder</a>
         </div>
         <div class="detail-progress">
           <span>Mark your progress:</span>
-          <label class="mark-complete">
-            <input type="checkbox" onchange="toggleComplete(this, 's5')" data-key="s5">
-            <span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-            <span class="check-label">Mark as done</span>
-          </label>
+          <label class="mark-complete"><input type="checkbox" onchange="toggleComplete(this, 's6')" data-key="s6"><span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="check-label">Mark as done</span></label>
         </div>
+      </div>
+
+      <div class="detail-card">
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Preparation Checklist</h3>
+        <ul class="session-topics">
+          <li>Download <code>academic_data.csv</code> from Session 3</li>
+          <li>Place it at: <code>MyDrive/Colab Notebooks/Data/</code></li>
+          <li>Open Session 5 notebook and skim (5-min refresher)</li>
+          <li>Bring your laptop with Colab logged in</li>
+          <li>Optional: come with one question you want answered from data</li>
+        </ul>
       </div>
     </div>
   </main>
@@ -1183,12 +1071,8 @@
 <div class="page" id="page-ps1">
   <header class="session-detail-header">
     <div class="container">
-      <button class="back-btn" onclick="navigate('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home
-      </button>
-      <div class="detail-icon-large ps">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      </div>
+      <button class="back-btn" onclick="navigate('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home</button>
+      <div class="detail-icon-large ps"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
       <div class="detail-badge">Problem Set 01</div>
       <h1 class="detail-title">Problem Set 1</h1>
       <p class="detail-meta">Practice problems based on Session 1: Python Without Fear.</p>
@@ -1199,9 +1083,7 @@
       <div class="detail-card">
         <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
-          <a class="btn" href="./problem_sets/ps1/PS1_PYHTON%20SESSION%20BY%20RAMESH%20BENIWAL.pdf" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>View Questions (PDF)
-          </a>
+          <a class="btn" href="./problem_sets/ps1/PS1_PYHTON%20SESSION%20BY%20RAMESH%20BENIWAL.pdf" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>View Questions (PDF)</a>
           <a class="btn btn-primary" href="./problem_sets/ps1/ps1_solution.html" target="_blank" rel="noopener">View Solutions (HTML)</a>
           <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/problem_sets/ps1/README.md" target="_blank" rel="noopener">Read Instructions</a>
         </div>
@@ -1222,52 +1104,47 @@
 <div class="modal-overlay" id="noticeModal" onclick="closeModalOnOverlay(event)">
   <div class="modal" role="dialog" aria-modal="true">
     <div class="modal-header">
-      <h3>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-        Announcements
-      </h3>
+      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>Announcements</h3>
       <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
     </div>
     <div class="modal-body">
       <div class="announce urgent">
-        <span class="time">Latest &middot; Session 05</span>
-        <div class="title">Session 5 &mdash; Exploratory Data Analysis</div>
-        This session introduces <strong>EDA</strong> — how to inspect, summarize, and visualize any dataset before deeper analysis.
+        <span class="time">Latest &middot; Session 06 &middot; Tomorrow</span>
+        <div class="title">Session 6 — Detailed EDA (Friday, 4–6 PM)</div>
+        The complete EDA workshop: data quality, variable types, full summary statistics, outliers with IQR, distributions, and relationships. Bring your laptop with the dataset ready.
       </div>
       <div class="announce success">
-        <span class="time">New &middot; Session 04 Complete</span>
-        <div class="title">Revision Session Finished</div>
-        Session 4 was a comprehensive revision of Sessions 1–3.
+        <span class="time">New &middot; Session 05 Complete</span>
+        <div class="title">Intro to EDA Finished</div>
+        Session 5 covered the first pass of EDA on the academic_data dataset — load, head, info, describe, and first scatter plot. Notebook still available.
       </div>
       <div class="announce info">
         <span class="time">Reminder</span>
         <div class="title">Problem Set 1 Solutions Available</div>
-        Worked solutions with detailed reasoning for <strong>Problem Set 1</strong> are available.
+        Worked solutions with detailed reasoning for <strong>Problem Set 1</strong> are available. Click "Problem Set 1" on the home page.
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  /* ============ SEARCH DATA ============ */
   const searchData = [
     { id: 'home', page: 'home', icon: 'home', label: 'HM', title: 'Home Page', meta: 'Main dashboard with all sessions', keywords: 'home dashboard main index quant society python series' },
     { id: 's1', page: 's1', icon: 's1', label: 'S1', title: 'Python Without Fear', meta: 'Session 01 · Fundamentals of Python', keywords: 'python variables data types strings booleans input colab marks calculator arithmetic session 1' },
     { id: 's2', page: 's2', icon: 's2', label: 'S2', title: 'Making Python Think', meta: 'Session 02 · Conditionals and loops', keywords: 'if elif else loops range logical operators conditions for while session 2' },
     { id: 's3', page: 's3', icon: 's3', label: 'S3', title: 'Data Handling & Preparation', meta: 'Session 03 · CSV files and datasets', keywords: 'csv dataset academic data handling preparation reading files session 3 pandas dataframe' },
     { id: 's4', page: 's4', icon: 's4', label: 'S4', title: 'Revision Session', meta: 'Session 04 · Recap of Sessions 1-3', keywords: 'revision recap practice exercises recap session 4 mixed problems' },
-    { id: 's5', page: 's5', icon: 's5', label: 'S5', title: 'Exploratory Data Analysis', meta: 'Session 05 · EDA basics', keywords: 'eda exploratory data analysis missing values summary statistics mean median quartiles outliers distributions histograms box plots correlation scatter session 5' },
+    { id: 's5', page: 's5', icon: 's5', label: 'S5', title: 'Intro to EDA', meta: 'Session 05 · First-pass exploration', keywords: 'intro eda first pass head tail info describe scatter session 5 pandas' },
+    { id: 's6', page: 's6', icon: 's6', label: 'S6', title: 'Detailed EDA', meta: 'Session 06 · Deep dive into data', keywords: 'detailed eda data quality missing values duplicates categorical continuous nominal ordinal discrete identifier summary statistics mean median mode std variance iqr cv percentiles skewness kurtosis frequency table univariate plots histogram kde boxplot countplot pie chart outliers iqr rule bivariate scatter correlation heatmap groupby pivot crosstab chi square multivariate hue pairplot pd.cut pd.qcut binning uses_ai quick_eda insights cheat sheet session 6' },
     { id: 'ps1', page: 'ps1', icon: 'ps', label: 'P1', title: 'Problem Set 1', meta: 'Based on Session 1', keywords: 'problem set 1 solutions pdf questions practice session 1' },
     { id: 'instructor', page: 'home', icon: 'home', label: 'IN', title: 'Instructor - Ramesh Beniwal', meta: 'Quant Society Club Coordinator', keywords: 'instructor ramesh beniwal teacher professor coordinator quant society economics' }
   ];
 
-  /* ============ NAVBAR ============ */
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 10);
   });
 
-  /* ============ DROPDOWNS ============ */
   function toggleDropdown(id) {
     event.stopPropagation();
     const dropdown = document.getElementById(id);
@@ -1281,7 +1158,6 @@
     }
   });
 
-  /* ============ THEME ============ */
   function toggleTheme() {
     const current = document.documentElement.getAttribute('data-theme');
     const next = current === 'dark' ? 'light' : 'dark';
@@ -1296,7 +1172,6 @@
     }
   })();
 
-  /* ============ NAVIGATION ============ */
   function navigate(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     let targetPage = null;
@@ -1308,22 +1183,15 @@
     if (targetPage) {
       targetPage.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      if (pageId === 'sessions') {
-        setTimeout(() => document.getElementById('sessions').scrollIntoView({ behavior: 'smooth' }), 100);
-      }
-      if (pageId === 'problemsets') {
-        setTimeout(() => document.getElementById('problemsets').scrollIntoView({ behavior: 'smooth' }), 100);
-      }
-      if (pageId === 'instructor') {
-        setTimeout(() => document.getElementById('instructor').scrollIntoView({ behavior: 'smooth' }), 100);
-      }
+      if (pageId === 'sessions') setTimeout(() => document.getElementById('sessions').scrollIntoView({ behavior: 'smooth' }), 100);
+      if (pageId === 'problemsets') setTimeout(() => document.getElementById('problemsets').scrollIntoView({ behavior: 'smooth' }), 100);
+      if (pageId === 'instructor') setTimeout(() => document.getElementById('instructor').scrollIntoView({ behavior: 'smooth' }), 100);
     }
     closeSearch();
     closeModal();
     document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
   }
 
-  /* ============ SEARCH ============ */
   const searchOverlay = document.getElementById('searchOverlay');
   const searchInput = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
@@ -1340,9 +1208,7 @@
     searchInput.value = '';
     selectedIndex = -1;
   }
-  function closeSearchOnOverlay(e) {
-    if (e.target === searchOverlay) closeSearch();
-  }
+  function closeSearchOnOverlay(e) { if (e.target === searchOverlay) closeSearch(); }
   function escapeHtml(str) {
     return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
   }
@@ -1378,9 +1244,7 @@
     const item = currentResults[index];
     if (item) navigate(item.page);
   }
-  function handleSearch(e) {
-    renderSearchResults(e.target.value);
-  }
+  function handleSearch(e) { renderSearchResults(e.target.value); }
   function handleSearchKeys(e) {
     if (currentResults.length === 0) return;
     if (e.key === 'ArrowDown') {
@@ -1403,62 +1267,46 @@
     });
   }
 
-  /* ============ MODAL ============ */
   const modal = document.getElementById('noticeModal');
-  function openModal() {
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal() {
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  function closeModalOnOverlay(e) {
-    if (e.target === modal) closeModal();
-  }
+  function openModal() { modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+  function closeModalOnOverlay(e) { if (e.target === modal) closeModal(); }
 
-  /* ============ KEYBOARD ============ */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { closeModal(); closeSearch(); }
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      openSearch();
-    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
     if (!e.target.matches('input, textarea')) {
-      if (e.key === '/' || e.key === 'f') {
-        e.preventDefault();
-        openSearch();
-      }
+      if (e.key === '/' || e.key === 'f') { e.preventDefault(); openSearch(); }
     }
   });
 
-  /* ============ PROGRESS ============ */
   function toggleComplete(checkbox, key) {
     localStorage.setItem('progress_' + key, checkbox.checked ? '1' : '0');
     buildSessionGrid();
   }
   function syncProgress() {
-    ['s1', 's2', 's3', 's4', 's5'].forEach(k => {
+    ['s1', 's2', 's3', 's4', 's5', 's6'].forEach(k => {
       const checked = localStorage.getItem('progress_' + k) === '1';
       document.querySelectorAll(`input[data-key="${k}"]`).forEach(input => input.checked = checked);
     });
   }
   syncProgress();
 
-  /* ============ SESSION GRID ============ */
   const sessions = [
     { id: 's1', num: '01', title: 'Python Without Fear', meta: 'Fundamentals & basics', icon: 's1' },
     { id: 's2', num: '02', title: 'Making Python Think', meta: 'Conditionals & loops', icon: 's2' },
     { id: 's3', num: '03', title: 'Data Handling & Preparation', meta: 'CSV files & preprocessing', icon: 's3' },
     { id: 's4', num: '04', title: 'Revision Session', meta: 'Recap of Sessions 1-3', icon: 's4' },
-    { id: 's5', num: '05', title: 'Exploratory Data Analysis', meta: 'EDA basics & visualization', icon: 's5', active: true }
+    { id: 's5', num: '05', title: 'Introduction to EDA', meta: 'First-pass exploration', icon: 's5' },
+    { id: 's6', num: '06', title: 'Exploratory Data Analysis — Detailed', meta: 'Deep dive into data', icon: 's6', active: true }
   ];
   const iconSVGs = {
     s1: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
     s2: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg>',
     s3: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
     s4: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
-    s5: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>'
+    s5: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>',
+    s6: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>'
   };
   function buildSessionGrid() {
     const grid = document.getElementById('sessionGrid');
@@ -1485,24 +1333,18 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </div>
       `;
-      grid.appendChild(btn);
+      grid.appendChild(box(btn));
     });
   }
+  function box(x) { return x; }
   buildSessionGrid();
 
   /* ============ COUNTDOWN ============ */
-  const schedule = [
-    new Date(2026, 7,  1, 16, 0, 0),
-    new Date(2026, 8,  1, 16, 0, 0),
-    new Date(2026, 9, 16, 16, 0, 0),
-    new Date(2026, 9, 23, 16, 0, 0),
-    new Date(2026, 9, 30, 16, 0, 0),
-    new Date(2026, 10, 6, 16, 0, 0)
-  ];
-  const nextSession = schedule.find(d => {
-    const end = d.getTime() + 2 * 60 * 60 * 1000;
-    return end > Date.now();
-  }) || schedule[schedule.length - 1];
+  /* Session 6: TOMORROW — Friday, November 13, 2026, 4:00 PM */
+  const nextSession = new Date(2026, 10, 13, 16, 0, 0);
+  /*                    ^^^^  ^^  ^^  ^^  ^^ ^^
+                        Year  Nov 13  Hour Min Sec  */
+
   function updateCountdown() {
     const now = new Date();
     const diff = nextSession - now;

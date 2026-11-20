@@ -91,9 +91,10 @@
     position: absolute; top: calc(100% + 10px); left: 0;
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 12px; padding: 6px;
-    box-shadow: var(--shadow-lg); min-width: 250px;
+    box-shadow: var(--shadow-lg); min-width: 260px;
     opacity: 0; visibility: hidden; transform: translateY(-6px);
     transition: all 0.2s ease; z-index: 100;
+    max-height: 420px; overflow-y: auto;
   }
   .nav-dropdown.open .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
   .dropdown-menu button {
@@ -185,6 +186,7 @@
   .search-item-icon.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
   .search-item-icon.s5 { background: linear-gradient(135deg, var(--cyan), var(--emerald)); }
   .search-item-icon.s6 { background: linear-gradient(135deg, #f43f5e, #8b5cf6); }
+  .search-item-icon.s7 { background: linear-gradient(135deg, #0ea5e9, #a855f7); }
   .search-item-icon.ps { background: linear-gradient(135deg, var(--cyan), var(--indigo)); }
   .search-item-icon.home { background: linear-gradient(135deg, #64748b, #94a3b8); }
   .search-item-content { flex: 1; min-width: 0; }
@@ -371,7 +373,8 @@
   .session-btn-icon.s3 { background: linear-gradient(135deg, var(--amber), var(--rose)); }
   .session-btn-icon.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
   .session-btn-icon.s5 { background: linear-gradient(135deg, var(--cyan), var(--emerald)); }
-  .session-btn-icon.s6 { background: linear-gradient(135deg, #f43f5e, #8b5cf6); box-shadow: 0 8px 18px -6px rgba(244, 63, 94, 0.5); }
+  .session-btn-icon.s6 { background: linear-gradient(135deg, #f43f5e, #8b5cf6); }
+  .session-btn-icon.s7 { background: linear-gradient(135deg, #0ea5e9, #a855f7); box-shadow: 0 8px 18px -6px rgba(14, 165, 233, 0.5); }
   .session-btn-icon.ps { background: linear-gradient(135deg, var(--cyan), var(--indigo)); }
   .session-btn-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.015em; color: var(--text); margin-bottom: 2px; }
   .session-btn-meta { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
@@ -430,7 +433,8 @@
   .detail-icon-large.s3 { background: linear-gradient(135deg, var(--amber), var(--rose)); }
   .detail-icon-large.s4 { background: linear-gradient(135deg, var(--pink), var(--violet)); }
   .detail-icon-large.s5 { background: linear-gradient(135deg, var(--cyan), var(--emerald)); }
-  .detail-icon-large.s6 { background: linear-gradient(135deg, #f43f5e, #8b5cf6); box-shadow: 0 16px 32px -12px rgba(244, 63, 94, 0.6); }
+  .detail-icon-large.s6 { background: linear-gradient(135deg, #f43f5e, #8b5cf6); }
+  .detail-icon-large.s7 { background: linear-gradient(135deg, #0ea5e9, #a855f7); box-shadow: 0 16px 32px -12px rgba(14, 165, 233, 0.6); }
   .detail-icon-large.ps { background: linear-gradient(135deg, var(--cyan), var(--indigo)); }
   .detail-title {
     font-size: 2.5rem; font-weight: 800; line-height: 1.1;
@@ -654,7 +658,8 @@
           <button onclick="navigate('s3')"><span class="search-item-icon s3" style="width:24px;height:24px;font-size:0.6rem;">03</span>Data Handling &amp; Preparation</button>
           <button onclick="navigate('s4')"><span class="search-item-icon s4" style="width:24px;height:24px;font-size:0.6rem;">04</span>Revision Session</button>
           <button onclick="navigate('s5')"><span class="search-item-icon s5" style="width:24px;height:24px;font-size:0.6rem;">05</span>Intro to EDA</button>
-          <button onclick="navigate('s6')"><span class="search-item-icon s6" style="width:24px;height:24px;font-size:0.6rem;">06</span>Detailed EDA</button>
+          <button onclick="navigate('s6')"><span class="search-item-icon s6" style="width:24px;height:24px;font-size:0.6rem;">06</span>Summary Statistics &amp; Cleaning</button>
+          <button onclick="navigate('s7')"><span class="search-item-icon s7" style="width:24px;height:24px;font-size:0.6rem;">07</span>Data Visualisation with Plots</button>
         </div>
       </div>
       <div class="nav-dropdown" id="navProblemSets">
@@ -716,7 +721,7 @@
       <div class="hero-stats">
         <div class="stat-card">
           <div class="stat-icon c1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-          <div class="stat-value">6</div>
+          <div class="stat-value">7</div>
           <div class="stat-label">Sessions</div>
         </div>
         <div class="stat-card">
@@ -996,60 +1001,102 @@
   </main>
 </div>
 
-<!-- ================= SESSION 6 (CURRENT) ================= -->
+<!-- SESSION 6 -->
 <div class="page" id="page-s6">
   <header class="session-detail-header">
     <div class="container">
       <button class="back-btn" onclick="navigate('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home</button>
-      <div class="detail-icon-large s6">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+      <div class="detail-icon-large s6"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+      <div class="detail-badge">Session 06</div>
+      <h1 class="detail-title">Summary Statistics &amp; Data Cleaning</h1>
+      <p class="detail-meta">Mean, median, standard deviation, table structure, missing value handling, and the summary of any dataset.</p>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="detail-card">
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Topics Covered</h3>
+        <ul class="session-topics">
+          <li>Summary statistics — mean, median, mode</li>
+          <li>Standard deviation and variance</li>
+          <li>How to look at the overall structure of a table</li>
+          <li>Data cleaning — detecting missing values</li>
+          <li>Replacing missing values using <code>fillna()</code></li>
+          <li>Working copy of the dataset with <code>.copy()</code></li>
+          <li>Summarising the entire dataset in one view</li>
+          <li>Plotting summary statistics for quick insight</li>
+        </ul>
       </div>
-      <div class="detail-badge" style="background: linear-gradient(135deg, var(--rose), var(--pink)); color: white;">Session 06 &middot; Active</div>
-      <h1 class="detail-title">Exploratory Data Analysis — Detailed</h1>
-      <p class="detail-meta">Deep dive into data quality, variable types, summary statistics, outliers, and relationships — a complete 2-hour EDA workshop.</p>
+      <div class="detail-card">
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-6/Python_Session_6.ipynb" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open Notebook in Colab</a>
+          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-6/Python_Session_6.ipynb" target="_blank" rel="noopener">View Notebook</a>
+          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-6" target="_blank" rel="noopener">Session Folder</a>
+        </div>
+        <div class="detail-progress">
+          <span>Mark your progress:</span>
+          <label class="mark-complete"><input type="checkbox" onchange="toggleComplete(this, 's6')" data-key="s6"><span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="check-label">Mark as done</span></label>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ================= SESSION 7 (CURRENT) ================= -->
+<div class="page" id="page-s7">
+  <header class="session-detail-header">
+    <div class="container">
+      <button class="back-btn" onclick="navigate('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home</button>
+      <div class="detail-icon-large s7">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </div>
+      <div class="detail-badge" style="background: linear-gradient(135deg, #0ea5e9, #a855f7); color: white;">Session 07 &middot; Active Today</div>
+      <h1 class="detail-title">Data Visualisation with Plots</h1>
+      <p class="detail-meta">A practical session on the most important plots in data analysis — starting with box plots, then covering the full plot toolkit and how to use each one.</p>
     </div>
   </header>
   <main>
     <div class="container">
       <div class="notice-box">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <div><strong>Upcoming Session (Tomorrow, Friday, 4–6 PM):</strong> This is the complete EDA workshop. We move from "what is this dataset" to "what story does the data tell" — covering data quality, variable types, full summary statistics, outlier detection with IQR, distributions, and multivariate relationships. Bring your laptop with the <strong>academic_data.csv</strong> file ready.</div>
+        <div><strong>Today's Session (4–6 PM):</strong> This session is almost entirely about <strong>plots</strong>. We begin with box plots of variables, then explore each major plot type — what it is, when to use it, and how to build it. By the end, you will know which plot to pick for which question. Bring your laptop and the <strong>academic_data.csv</strong> file.</div>
       </div>
 
       <div class="detail-card">
-        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Topics Covered (2-Hour Deep Dive)</h3>
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Topics Covered (2-Hour Session)</h3>
         <ul class="session-topics">
-          <li>Setup &amp; Session 5 recap</li>
-          <li>Data quality — missing values, duplicates, placeholder values</li>
-          <li>Categorical vs Continuous (nominal, ordinal, discrete, identifier)</li>
-          <li>Why `year` is numeric but categorical in nature</li>
-          <li>Continuous summary — mean, median, mode, std, variance, IQR, CV, percentiles, skewness, kurtosis</li>
-          <li>Reusable summary function for any continuous column</li>
-          <li>Categorical summary — frequency, percent, cumulative percent</li>
-          <li>Univariate plots — histogram, KDE, boxplot, countplot, pie chart</li>
-          <li>Outliers — IQR rule and impossible-value checks</li>
-          <li>Bivariate — scatter + trend line, correlation heatmap</li>
-          <li>Groupby, pivot tables, crosstabs, chi-square tests</li>
-          <li>Multivariate — hue plots, pairplot, pd.cut / pd.qcut binning</li>
-          <li>The `uses_ai` feature engineering example</li>
-          <li>Reusable `quick_eda()` function</li>
-          <li>Insights table — collective interpretation in class</li>
-          <li>9 practice exercises (easy, medium, challenging)</li>
-          <li>One-page cheat sheet for future projects</li>
+          <li>Recap of Session 6 — summary statistics and cleaning</li>
+          <li>Box plots — reading quartiles, median, and outliers</li>
+          <li>Box plots for every continuous variable</li>
+          <li>Box plots grouped by a categorical variable</li>
+          <li>Histograms — shape of a single variable</li>
+          <li>Count plots — frequencies of categorical variables</li>
+          <li>Bar charts — comparing categories</li>
+          <li>Line plots — trends and ordering</li>
+          <li>Scatter plots — relationships between two variables</li>
+          <li>Pie charts — proportions (and when not to use them)</li>
+          <li>Pair plots and correlation heatmaps</li>
+          <li>Choosing the right plot for the right question</li>
+          <li>Hands-on practice with all plot types on the dataset</li>
         </ul>
       </div>
 
       <div class="detail-card">
         <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Materials</h3>
         <div class="actions">
-          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-6/Python_Session_6.ipynb" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open Notebook in Colab</a>
-          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-6/Python_Session_6.ipynb" target="_blank" rel="noopener">View Notebook</a>
+          <a class="btn btn-primary" href="https://colab.research.google.com/github/R-code11/colab-notebooks-python/blob/main/sessions/session-7/Python_Session_7.ipynb" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open Notebook in Colab</a>
+          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/blob/main/sessions/session-7/Python_Session_7.ipynb" target="_blank" rel="noopener">View Notebook</a>
           <a class="btn" href="./sessions/session-3/academic_data.csv" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download Dataset</a>
-          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-6" target="_blank" rel="noopener">Session Folder</a>
+          <a class="btn" href="https://github.com/R-code11/colab-notebooks-python/tree/main/sessions/session-7" target="_blank" rel="noopener">Session Folder</a>
         </div>
         <div class="detail-progress">
           <span>Mark your progress:</span>
-          <label class="mark-complete"><input type="checkbox" onchange="toggleComplete(this, 's6')" data-key="s6"><span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="check-label">Mark as done</span></label>
+          <label class="mark-complete"><input type="checkbox" onchange="toggleComplete(this, 's7')" data-key="s7"><span class="check-box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="check-label">Mark as done</span></label>
         </div>
       </div>
 
@@ -1058,9 +1105,9 @@
         <ul class="session-topics">
           <li>Download <code>academic_data.csv</code> from Session 3</li>
           <li>Place it at: <code>MyDrive/Colab Notebooks/Data/</code></li>
-          <li>Open Session 5 notebook and skim (5-min refresher)</li>
+          <li>Skim Session 6 notebook — summary stats &amp; cleaning (5 min)</li>
           <li>Bring your laptop with Colab logged in</li>
-          <li>Optional: come with one question you want answered from data</li>
+          <li>Have one question about the data you'd like to visualise</li>
         </ul>
       </div>
     </div>
@@ -1109,14 +1156,14 @@
     </div>
     <div class="modal-body">
       <div class="announce urgent">
-        <span class="time">Latest &middot; Session 06 &middot; Tomorrow</span>
-        <div class="title">Session 6 — Detailed EDA (Friday, 4–6 PM)</div>
-        The complete EDA workshop: data quality, variable types, full summary statistics, outliers with IQR, distributions, and relationships. Bring your laptop with the dataset ready.
+        <span class="time">Latest &middot; Session 07 &middot; Today</span>
+        <div class="title">Session 7 — Data Visualisation with Plots (Today, 4–6 PM)</div>
+        Today is almost entirely about <strong>plots</strong>: starting with box plots, then covering histograms, count plots, bar charts, line plots, scatter plots, pie charts, pair plots, and correlation heatmaps. Bring your laptop.
       </div>
       <div class="announce success">
-        <span class="time">New &middot; Session 05 Complete</span>
-        <div class="title">Intro to EDA Finished</div>
-        Session 5 covered the first pass of EDA on the academic_data dataset — load, head, info, describe, and first scatter plot. Notebook still available.
+        <span class="time">New &middot; Session 06 Complete</span>
+        <div class="title">Summary Statistics &amp; Data Cleaning Finished</div>
+        Session 6 covered summary statistics (mean, median, std, variance), data cleaning, missing value replacement, and how to structure a table for a quick summary. Notebook still available.
       </div>
       <div class="announce info">
         <span class="time">Reminder</span>
@@ -1134,8 +1181,9 @@
     { id: 's2', page: 's2', icon: 's2', label: 'S2', title: 'Making Python Think', meta: 'Session 02 · Conditionals and loops', keywords: 'if elif else loops range logical operators conditions for while session 2' },
     { id: 's3', page: 's3', icon: 's3', label: 'S3', title: 'Data Handling & Preparation', meta: 'Session 03 · CSV files and datasets', keywords: 'csv dataset academic data handling preparation reading files session 3 pandas dataframe' },
     { id: 's4', page: 's4', icon: 's4', label: 'S4', title: 'Revision Session', meta: 'Session 04 · Recap of Sessions 1-3', keywords: 'revision recap practice exercises recap session 4 mixed problems' },
-    { id: 's5', page: 's5', icon: 's5', label: 'S5', title: 'Intro to EDA', meta: 'Session 05 · First-pass exploration', keywords: 'intro eda first pass head tail info describe scatter session 5 pandas' },
-    { id: 's6', page: 's6', icon: 's6', label: 'S6', title: 'Detailed EDA', meta: 'Session 06 · Deep dive into data', keywords: 'detailed eda data quality missing values duplicates categorical continuous nominal ordinal discrete identifier summary statistics mean median mode std variance iqr cv percentiles skewness kurtosis frequency table univariate plots histogram kde boxplot countplot pie chart outliers iqr rule bivariate scatter correlation heatmap groupby pivot crosstab chi square multivariate hue pairplot pd.cut pd.qcut binning uses_ai quick_eda insights cheat sheet session 6' },
+    { id: 's5', page: 's5', icon: 's5', label: 'S5', title: 'Introduction to EDA', meta: 'Session 05 · First-pass exploration', keywords: 'intro eda first pass head tail info describe scatter session 5 pandas' },
+    { id: 's6', page: 's6', icon: 's6', label: 'S6', title: 'Summary Statistics & Data Cleaning', meta: 'Session 06 · Mean, median, std, cleaning', keywords: 'summary statistics mean median mode standard deviation variance data cleaning missing values fillna copy table structure session 6' },
+    { id: 's7', page: 's7', icon: 's7', label: 'S7', title: 'Data Visualisation with Plots', meta: 'Session 07 · Box plots & more', keywords: 'data visualisation plots box plot histograms count plots bar charts line plots scatter plots pie charts pair plots correlation heatmap matplotlib seaborn session 7' },
     { id: 'ps1', page: 'ps1', icon: 'ps', label: 'P1', title: 'Problem Set 1', meta: 'Based on Session 1', keywords: 'problem set 1 solutions pdf questions practice session 1' },
     { id: 'instructor', page: 'home', icon: 'home', label: 'IN', title: 'Instructor - Ramesh Beniwal', meta: 'Quant Society Club Coordinator', keywords: 'instructor ramesh beniwal teacher professor coordinator quant society economics' }
   ];
@@ -1227,7 +1275,7 @@
     }).slice(0, 8);
     selectedIndex = currentResults.length > 0 ? 0 : -1;
     if (currentResults.length === 0) {
-      searchResults.innerHTML = `<div class="search-empty"><strong>No results found</strong>Try "session", "data", "python", "EDA"</div>`;
+      searchResults.innerHTML = `<div class="search-empty"><strong>No results found</strong>Try "session", "data", "python", "plots"</div>`;
       return;
     }
     searchResults.innerHTML = currentResults.map((item, i) => `
@@ -1285,7 +1333,7 @@
     buildSessionGrid();
   }
   function syncProgress() {
-    ['s1', 's2', 's3', 's4', 's5', 's6'].forEach(k => {
+    ['s1', 's2', 's3', 's4', 's5', 's6', 's7'].forEach(k => {
       const checked = localStorage.getItem('progress_' + k) === '1';
       document.querySelectorAll(`input[data-key="${k}"]`).forEach(input => input.checked = checked);
     });
@@ -1298,7 +1346,8 @@
     { id: 's3', num: '03', title: 'Data Handling & Preparation', meta: 'CSV files & preprocessing', icon: 's3' },
     { id: 's4', num: '04', title: 'Revision Session', meta: 'Recap of Sessions 1-3', icon: 's4' },
     { id: 's5', num: '05', title: 'Introduction to EDA', meta: 'First-pass exploration', icon: 's5' },
-    { id: 's6', num: '06', title: 'Exploratory Data Analysis — Detailed', meta: 'Deep dive into data', icon: 's6', active: true }
+    { id: 's6', num: '06', title: 'Summary Statistics & Data Cleaning', meta: 'Mean, median, std, cleaning', icon: 's6' },
+    { id: 's7', num: '07', title: 'Data Visualisation with Plots', meta: 'Box plots & more', icon: 's7', active: true }
   ];
   const iconSVGs = {
     s1: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
@@ -1306,7 +1355,8 @@
     s3: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
     s4: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
     s5: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>',
-    s6: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>'
+    s6: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>',
+    s7: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>'
   };
   function buildSessionGrid() {
     const grid = document.getElementById('sessionGrid');
@@ -1333,17 +1383,16 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </div>
       `;
-      grid.appendChild(box(btn));
+      grid.appendChild(btn);
     });
   }
-  function box(x) { return x; }
   buildSessionGrid();
 
   /* ============ COUNTDOWN ============ */
-  /* Session 6: TOMORROW — Friday, November 13, 2026, 4:00 PM */
-  const nextSession = new Date(2026, 10, 13, 16, 0, 0);
-  /*                    ^^^^  ^^  ^^  ^^  ^^ ^^
-                        Year  Nov 13  Hour Min Sec  */
+  /* Session 7: TODAY — set hour to 16 (4 PM) */
+  const nextSession = new Date(2026, 10, 16, 16, 0, 0);
+  /*                    ^^^^  ^^  ^^  ^^ ^^ ^^
+                        Year  Nov 16  4PM 0 0  */
 
   function updateCountdown() {
     const now = new Date();
